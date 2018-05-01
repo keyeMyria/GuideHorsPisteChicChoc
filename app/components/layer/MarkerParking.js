@@ -15,7 +15,7 @@ export default class MarkerZone extends Component {
     constructor(props) {
         super(props);
         const {source, name} = this.props;
-        featuresToRender = getSourceData(source, 'markerparking');
+        featuresToRender = getSourceData(source, 'element', 'markerparking');
         //console.log(zoomlevel);
     }
 

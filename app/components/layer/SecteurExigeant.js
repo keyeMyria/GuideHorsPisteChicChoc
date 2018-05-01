@@ -11,7 +11,7 @@ export default class SecteurExigeant extends Component {
     constructor(props) {
         super(props);
         const {source} = this.props;
-        featuresToRender = getSourceData(source, 'secteur-exigeant');
+        featuresToRender = getSourceData(source, 'element', 'secteur-exigeant');
     }
 
     render() {

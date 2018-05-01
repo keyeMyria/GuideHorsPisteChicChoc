@@ -11,7 +11,7 @@ export default class Descente extends Component {
     constructor(props) {
         super(props);
         const {source} = this.props;
-        featuresToRender = getSourceData(source, 'ligne');
+        featuresToRender = getSourceData(source, 'element', 'ligne');
     }
     
     render() {

@@ -636,7 +636,7 @@
         "element": "markerzone",
         "name": "Parc des Chics Chocs",
         "groupe": "zone",
-        "groupe-name": "zone-chicchoc"
+        "groupename": "zone-chicchoc"
       },
       "geometry": {
         "coordinates": [
@@ -1141,7 +1141,7 @@
         "element": "ligne",
         "name": "",
         "groupe": "secteur-murdespats",
-        "groupe-name": ""
+        "groupename": ""
       },
       "geometry": {
         "coordinates": [
@@ -1605,7 +1605,7 @@
         "name": "Blanche Lamontagne",
         "groupe": "montagne-blanche",
         "element": "markermontagne",
-        "groupe-name": "secteur-blanche"
+        "groupename": "secteur-blanche"
       },
       "geometry": {
         "coordinates": [
@@ -1659,7 +1659,7 @@
         "element": "markermontagne",
         "name": "Mont-Albert",
         "groupe": "zone-chicchoc",
-        "groupe-name": "montagne-montalbert"
+        "groupename": "montagne-montalbert"
       },
       "geometry": {
         "coordinates": [
@@ -2339,7 +2339,7 @@
         "element": "markermontagne",
         "name": "Champs de Mars",
         "groupe": "zone-chicchoc",
-        "groupe-name": "montagne-mars"
+        "groupename": "montagne-mars"
       },
       "geometry": {
         "coordinates": [
@@ -3539,7 +3539,7 @@
       "properties": {
         "element": "skintrack",
         "groupe": "secteur-murdespats",
-        "groupe-name": "",
+        "groupename": "",
         "name": "Skintrack 2"
       },
       "geometry": {
@@ -3890,7 +3890,7 @@
       "properties": {
         "element": "markersecteur",
         "groupe": "secteur-blanche",
-        "groupe-name": "secteur-blanche",
+        "groupename": "secteur-blanche",
         "name": "Blanche Lamontagne"
       },
       "geometry": {
@@ -5612,7 +5612,7 @@
         "element": "markermontagne",
         "name": "Hog's Back",
         "groupe": "zone-chicchoc",
-        "groupe-name": "montagne-hogs"
+        "groupename": "montagne-hogs"
       },
       "geometry": {
         "coordinates": [
@@ -6019,7 +6019,7 @@
         "element": "secteur-complexe",
         "name": "",
         "groupe": "secteur-murdespats",
-        "groupe-name": ""
+        "groupename": ""
       },
       "geometry": {
         "coordinates": [
@@ -7460,7 +7460,7 @@
       "properties": {
         "element": "secteur-exigeant",
         "groupe": "secteur-vallieres",
-        "groupe-name": ""
+        "groupename": ""
       },
       "geometry": {
         "coordinates": [
@@ -9628,7 +9628,7 @@
         "element": "markersecteur",
         "name": "Vallières de Saint-Réal",
         "groupe": "montagne-vallieres",
-        "groupe-name": "secteur-vallieres"
+        "groupename": "secteur-vallieres"
       },
       "geometry": {
         "coordinates": [
@@ -12909,7 +12909,7 @@
         "element": "markermontagne",
         "name": "Mont Lyall",
         "groupe": "zone-chicchoc",
-        "groupe-name": "montagne-lyall"
+        "groupename": "montagne-lyall"
       },
       "geometry": {
         "coordinates": [
@@ -16038,7 +16038,7 @@
         "element": "markerzone",
         "name": "Mont-St-Pierre",
         "groupe": "zone",
-        "groupe-name": ""
+        "groupename": ""
       },
       "geometry": {
         "coordinates": [
@@ -16292,7 +16292,7 @@
         "element": "markermontagne",
         "name": "Vallières de Saint-Réal",
         "groupe": "zone-chicchoc",
-        "groupe-name": "secteur-vallieres"
+        "groupename": "secteur-vallieres"
       },
       "geometry": {
         "coordinates": [
@@ -16350,7 +16350,7 @@
         "name": "Hog's Back",
         "element": "markersecteur",
         "groupe": "montagne-hogs",
-        "groupe-name": "secteur-hogs"
+        "groupename": "secteur-hogs"
       },
       "geometry": {
         "coordinates": [

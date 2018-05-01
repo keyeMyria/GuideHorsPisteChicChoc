@@ -12,6 +12,7 @@ import circle from '@turf/circle';
 import bbox from '@turf/bbox';
 
 import geojsonExtent from '@mapbox/geojson-extent';
+import {getSourceData} from './app/lib/geojson'
 
 import {applySplineToLineString, addArrowToLigne} from './app/lib/geojson'
 
@@ -73,8 +74,16 @@ export default class App extends Component {
     applySplineToLineString(HogsBack);
     addArrowToLigne(HogsBack);
     featuresCollection.push(HogsBack);
+    console.log('componentDidMount done');
   }
 
+  componentDidCatch(errorString, errorInfo) {
+    console.log(errorString, errorInfo);
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
 
   onUserLocationUpdate(location) {
     //console.log('onUserLocationUpdate', location);
@@ -87,13 +96,15 @@ export default class App extends Component {
   }
 
   async onDidFinishLoadingMap() {
+    console.log('onDidFinishLoadingMap');
     const bounds = geojsonExtent(HogsBack);
-    console.log('onDidFinishLoadingMap', bounds);
-    await this._map.fitBounds([bounds[2], bounds[3]], [bounds[0], bounds[1]], 50, 1);
-    //console.log('Visible Bounds', visibleBounds); // eslint-disable-line no-console
+    await this._map.fitBounds([bounds[2], bounds[3]], [bounds[0], bounds[1]], [50, 100, 50, 50], 1); // [top, right, bottom, left]
+    console.log('onDidFinishLoadingMap done');
   }
 
   async onPress(e) {
+
+    console.log('onPress');
     const { screenPointX, screenPointY } = e.properties;
 
     const screenCoords = [];
@@ -108,12 +119,29 @@ export default class App extends Component {
 
     //console.log(result.features);
 
-    console.log('onPressApp.js', result.features.length);
+    var groupename = '';
+
     for (var i = 0, len = result.features.length; i < len; i++) {
       console.log(result.features[i].properties.element, result.features[i].properties.name);
+
+      if (result.features[i].properties.groupename)
+        if (result.features[i].properties.groupename.length > 0) {
+          groupename = result.features[i].properties.groupename;
+        }
     }
 
-    ToastAndroid.show(result.features[0].properties.element + result.features[0].properties.name, ToastAndroid.SHORT);
+    if (groupename.length > 0) {
+      // on a matché un marker avec un groupename, on zoom sur celui-ci
+      const bounds = geojsonExtent(getSourceData(featuresCollection, 'groupe', groupename));
+      console.log('onPress zooming to groupename ' + groupename);
+      await this._map.fitBounds([bounds[2], bounds[3]], [bounds[0], bounds[1]], [50, 100, 50, 50], 150);
+      return;
+
+    } else if (result.features.length > 0) {
+      ToastAndroid.show(result.features[0].properties.element + result.features[0].properties.name, ToastAndroid.SHORT);
+      console.log('feature selected' + result.features[0]);
+    }
+    console.log('onPress done');
   }
 
   getBoundingBox(screenCoords) {

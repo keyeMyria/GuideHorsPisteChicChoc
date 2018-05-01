@@ -3,13 +3,13 @@ import bearing from '@turf/bearing';
 import point from '@turf/helpers';
 import bezier from 'turf-bezier';
 
-export function getSourceData(source, type) {
+export function getSourceData(source, propertie, type) {
 
     featuresToRender = { features : [], type: "FeatureCollection" };
 
     source.forEach(element => {
         element.features.filter(data => {
-            if (data.properties.element == type)
+            if (data.properties[propertie] == type)
                 featuresToRender.features.push(data)
             });
     });

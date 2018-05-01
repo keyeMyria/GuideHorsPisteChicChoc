@@ -16,7 +16,7 @@ export default class MarkerMontagne extends Component {
         super(props);
         const {source, name} = this.props;
         
-        featuresToRender = getSourceData(source, 'markermontagne');
+        featuresToRender = getSourceData(source, 'element', 'markermontagne');
         //console.log(featuresToRender);
     }
 

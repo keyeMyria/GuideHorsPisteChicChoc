@@ -11,7 +11,7 @@ export default class SkinTrack extends Component {
     constructor(props) {
         super(props);
         const {source} = this.props;
-        featuresToRender = getSourceData(source, 'skintrack');
+        featuresToRender = getSourceData(source, 'element', 'skintrack');
     }
     
     render() {

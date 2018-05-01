@@ -20,7 +20,7 @@
         "element": "markermontagne",
         "name": "Hog's Back",
         "groupe": "zone-chicchoc",
-        "groupe-name": "montagne-hogs"
+        "groupename": "montagne-hogs"
       },
       "geometry": {
         "coordinates": [
@@ -1484,7 +1484,7 @@
         "name": "Hog's Back",
         "element": "markersecteur",
         "groupe": "montagne-hogs",
-        "groupe-name": "secteur-hogs"
+        "groupename": "secteur-hogs"
       },
       "geometry": {
         "coordinates": [

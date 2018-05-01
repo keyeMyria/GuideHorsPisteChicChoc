@@ -9,7 +9,7 @@ const featuresToRender = { };
 export default class SecteurSimple extends Component {
     constructor(props) {
         super(props);
-        featuresToRender = getSourceData(this.props.source, 'secteur-simple');
+        featuresToRender = getSourceData(this.props.source, 'element', 'secteur-simple');
     }
 
     render() {

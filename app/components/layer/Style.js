@@ -9,7 +9,7 @@ export const styles = Mapbox.StyleSheet.create({
       lineWidth: 1.5,
       lineBlur: 0.5,
       lineOpacity: Mapbox.StyleSheet.camera({
-        10: 0.0,
+        10.5: 0.0,
         11.5: 0.45,
       }, Mapbox.InterpolationMode.Exponential),
     },
@@ -29,7 +29,7 @@ export const styles = Mapbox.StyleSheet.create({
         lineColor: 'yellow',
         lineWidth: 1.5,
         lineOpacity: Mapbox.StyleSheet.camera({
-          10: 0.0,
+          10.5: 0.0,
           12: 0.8,
         }, Mapbox.InterpolationMode.Exponential),
       },
@@ -39,7 +39,7 @@ export const styles = Mapbox.StyleSheet.create({
         //maxZoomLevel: 15.5,
         fillAntialias: true,
         fillOpacity: Mapbox.StyleSheet.camera({
-          9.5: 0.0,
+          9: 0.0,
           10.5: 0.15,
         }, Mapbox.InterpolationMode.Exponential),
       },
@@ -49,7 +49,7 @@ export const styles = Mapbox.StyleSheet.create({
         //maximumZoomLevel: 15.5,
         fillAntialias: true,
         fillOpacity: Mapbox.StyleSheet.camera({
-          9.5: 0.0,
+          9: 0.0,
           10.5: 0.12,
         }, Mapbox.InterpolationMode.Exponential),
       },
@@ -58,8 +58,8 @@ export const styles = Mapbox.StyleSheet.create({
         fillColor: 'gray',
         fillAntialias: true,
         fillOpacity: Mapbox.StyleSheet.camera({
-          9.5: 0.0,
-          10.5: 0.4,
+          9: 0.0,
+          10.5: 0.35,
         }, Mapbox.InterpolationMode.Exponential),
       },
 
@@ -68,12 +68,12 @@ export const styles = Mapbox.StyleSheet.create({
         iconAllowOverlap: true,
         iconSize: 1.4 ,
         iconOpacity: Mapbox.StyleSheet.camera({
-            10.5: 0.0,
-            11.5: 1,
+            11: 0.0,
+            12: 1,
           }, Mapbox.InterpolationMode.Exponential),
         textOpacity: Mapbox.StyleSheet.camera({
-            10.5: 0.0,
-            11.5: 0.5,
+            11: 0.0,
+            12: 0.5,
           }, Mapbox.InterpolationMode.Exponential),
         textSize: 12,
         textField: '{name}',
@@ -93,12 +93,12 @@ export const styles = Mapbox.StyleSheet.create({
         iconAllowOverlap: true,
         iconSize: 0.3 ,
         iconOpacity: Mapbox.StyleSheet.camera({
-            10.5: 0.0,
-            11.5: 1,
+            11: 0.0,
+            12: 1,
           }, Mapbox.InterpolationMode.Exponential),
         textOpacity: Mapbox.StyleSheet.camera({
-            10.5: 0.0,
-            11.5: 0.5,
+            11: 0.0,
+            12: 0.5,
           }, Mapbox.InterpolationMode.Exponential),
         textSize: 12,
         textField: '{name}',

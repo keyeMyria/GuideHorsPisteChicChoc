@@ -15,7 +15,7 @@ export default class MarkerSecteur extends Component {
     constructor(props) {
         super(props);
         const {source, name} = this.props;
-        featuresToRender = getSourceData(source, 'markersecteur');
+        featuresToRender = getSourceData(source, 'element', 'markersecteur');
         //console.log(zoomlevel);
     }
 

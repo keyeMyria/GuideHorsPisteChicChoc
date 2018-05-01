@@ -11,7 +11,7 @@ export default class AccessTrack extends Component {
     constructor(props) {
         super(props);
         const {source} = this.props;
-        featuresToRender = getSourceData(source, 'accesstrack');
+        featuresToRender = getSourceData(source, 'element', 'accesstrack');
     }
     
     render() {
