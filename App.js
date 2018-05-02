@@ -1,3 +1,5 @@
+//@dsas flow
+
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -8,8 +10,6 @@ import {
 } from 'react-native';
 
 import Mapbox from '@mapbox/react-native-mapbox-gl';
-import circle from '@turf/circle';
-import bbox from '@turf/bbox';
 
 import geojsonExtent from '@mapbox/geojson-extent';
 import {getSourceData} from './app/lib/geojson'
@@ -32,12 +32,13 @@ import MarkerRefuge from './app/components/layer/MarkerRefuge'
 import MarkerSecteur from './app/components/layer/MarkerSecteur'
 import MarkerZone from './app/components/layer/MarkerZone'
 
+import {generateLayers} from './app/components/layer/Layer'
 
 import HogsBack from './app/assets/all.json';
 
 import Permissions from 'react-native-permissions';
 
-import Stats from './app/components/Stats'
+//import Stats from './app/components/Stats'
 
 console.log('token',MAPBOX_ACCESS_TOKEN);
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
@@ -205,13 +206,18 @@ export default class App extends Component {
           <Descente source={featuresCollection}/>
           <AccessTrack source={featuresCollection}/>
           <SkinTrack source={featuresCollection}/>
+
+          {generateLayers(featuresCollection)}
+
+          {/*
+          <Stats lastLocation={this.state.lastLocation} zoom={this.state.zoom}></Stats>
+
           <MarkerMontagne source={featuresCollection}/>
           <MarkerSecteur source={featuresCollection}/>
           <MarkerZone source={featuresCollection}/>
           <MarkerParking source={featuresCollection}/>
           <MarkerRefuge source={featuresCollection}/>
-          {/*
-          <Stats lastLocation={this.state.lastLocation} zoom={this.state.zoom}></Stats>
+
           */}
            
         </Mapbox.MapView>

@@ -5,6 +5,8 @@ import {getSourceData} from '../../lib/geojson'
 import {styles} from './Style'
 import zoomlevel from './ZoomLevel.json'
 
+import pin from '../../assets/marker.png';
+
 
 
 const featuresToRender = { };
@@ -29,7 +31,8 @@ export default class MarkerMontagne extends Component {
             <Mapbox.ShapeSource 
                 id={'markermontagne'}
                 shape={featuresToRender} 
-                //images={{ assets: ['marker'] }}
+                //images={{item: MAP_PIN_IMAGE}}
+                images={{ assets: ['marker', 'house'] }}
                 >
                 <Mapbox.SymbolLayer
                     id={'markermontagne'}

@@ -1,6 +1,5 @@
 import destination from '@turf/destination';
 import bearing from '@turf/bearing';
-import point from '@turf/helpers';
 import bezier from 'turf-bezier';
 
 export function getSourceData(source, propertie, type) {
@@ -23,14 +22,9 @@ export function applySplineToLineString(source) {
 
     source.features.map(data => {
         if (data.properties.element == 'ligne') {
-            //console.log(data);
             var y = Object.assign({}, data); 
             z = bezier(y, [resolution=5000], [sharpness=0.7]);
-            //console.log(z.geometry.coordinates);
             Object.assign(data, z);
-            //data.geometry.coordinates = 
-            //return newdata;
-            //data.properties.name = 'aaa';
         }
 
         return data;

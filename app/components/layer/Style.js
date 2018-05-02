@@ -1,8 +1,5 @@
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 
-import marker from '../../assets/marker.png';
-import house from '../../assets/house.png';
-
 export const styles = Mapbox.StyleSheet.create({
     accesstrack: {
       lineColor: 'red',
@@ -89,7 +86,7 @@ export const styles = Mapbox.StyleSheet.create({
       },
 
       markerrefuge: {
-        iconImage: house,
+        iconImage: 'house',
         iconAllowOverlap: true,
         iconSize: 0.3 ,
         iconOpacity: Mapbox.StyleSheet.camera({
@@ -114,19 +111,41 @@ export const styles = Mapbox.StyleSheet.create({
       },
 
       markersecteur: {
-        iconImage: marker,
+        iconImage: 'marker',
+        iconAllowOverlap: true,
+        iconSize:0.5 ,
+        textSize: 12,
+        textField: '{name}',
+        textColor: 'black',
+        textOpacity: 0.8,
+        textAnchor: 'left',
+        iconIgnorePlacement: true,
+        textIgnorePlacement: false,
+        textOffset: [1.0, 0],
+        textMaxWidth: 6,
+        textJustify: 'left',
+        textMaxAngle: 25
       },
 
       markermontagne: {
-        iconImage: marker,
+        iconImage: 'marker',
+        iconAllowOverlap: true,
+        iconSize:0.5 ,
+        textSize: 12,
+        textField: '{name}',
+        textColor: 'black',
+        textOpacity: 0.8,
+        textAnchor: 'left',
+        iconIgnorePlacement: true,
+        textIgnorePlacement: false,
+        textOffset: [1.0, 0],
+        textMaxWidth: 6,
+        textJustify: 'left',
+        textMaxAngle: 25
       },
 
       markerzone: {
-        iconImage: marker,
-      },
-
-      marker: {
-        //iconImage: '{icon}',
+        iconImage: 'marker',
         iconAllowOverlap: true,
         iconSize:0.5 ,
         textSize: 12,

@@ -1,0 +1,33 @@
+[
+        {
+            "name": "markerparking",
+            "type": "marker",
+            "minZoom": 0, 
+            "maxZoom": 18
+        },
+        {
+            "name": "markerrefuge",
+            "type": "marker",
+            "minZoom": 0, 
+            "maxZoom": 18
+        },
+        {
+            "name": "markerzone",
+            "type": "marker",
+            "minZoom":0, 
+            "maxZoom":9
+        },
+        {
+            "name": "markersecteur",
+            "type": "marker",
+            "minZoom":11, 
+            "maxZoom":14
+        },
+        {
+            "name": "markermontagne",
+            "type": "marker",
+            "minZoom":9, 
+            "maxZoom":11
+        }
+]
+
