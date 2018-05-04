@@ -259,7 +259,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant"
+        "element": "secteurexigeant"
       },
       "geometry": {
         "coordinates": [
@@ -960,7 +960,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant"
+        "element": "secteurexigeant"
       },
       "geometry": {
         "coordinates": [
@@ -2092,7 +2092,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres",
         "name": ""
       },
@@ -2840,7 +2840,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres"
       },
       "geometry": {
@@ -3269,7 +3269,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres",
         "name": ""
       },
@@ -3433,7 +3433,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres"
       },
       "geometry": {
@@ -3697,7 +3697,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres"
       },
       "geometry": {
@@ -3991,7 +3991,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-complexe"
+        "element": "secteurcomplexe"
       },
       "geometry": {
         "coordinates": [
@@ -5138,7 +5138,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant"
+        "element": "secteurexigeant"
       },
       "geometry": {
         "coordinates": [
@@ -5612,7 +5612,7 @@
         "element": "markermontagne",
         "name": "Hog's Back",
         "groupe": "zone-chicchoc",
-        "groupename": "montagne-hogs"
+        "groupename": "secteur-hogs"
       },
       "geometry": {
         "coordinates": [
@@ -5679,7 +5679,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-simple"
+        "element": "secteursimple"
       },
       "geometry": {
         "coordinates": [
@@ -6016,7 +6016,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-complexe",
+        "element": "secteurcomplexe",
         "name": "",
         "groupe": "secteur-murdespats",
         "groupename": ""
@@ -6608,7 +6608,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres"
       },
       "geometry": {
@@ -7338,7 +7338,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres",
         "name": ""
       },
@@ -7458,7 +7458,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres",
         "groupename": ""
       },
@@ -7554,7 +7554,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant"
+        "element": "secteurexigeant"
       },
       "geometry": {
         "coordinates": [
@@ -8869,7 +8869,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-complexe",
+        "element": "secteurcomplexe",
         "name": "",
         "groupe": "secteur-grandecuve"
       },
@@ -9232,7 +9232,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-simple"
+        "element": "secteursimple"
       },
       "geometry": {
         "coordinates": [
@@ -9346,7 +9346,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-complexe"
+        "element": "secteurcomplexe"
       },
       "geometry": {
         "coordinates": [
@@ -9922,7 +9922,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres"
       },
       "geometry": {
@@ -10221,7 +10221,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres",
         "name": ""
       },
@@ -10765,7 +10765,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant"
+        "element": "secteurexigeant"
       },
       "geometry": {
         "coordinates": [
@@ -11606,7 +11606,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres"
       },
       "geometry": {
@@ -13005,7 +13005,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres",
         "name": ""
       },
@@ -13223,7 +13223,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-hogs"
       },
       "geometry": {
@@ -13320,7 +13320,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-simple",
+        "element": "secteursimple",
         "groupe": "secteur-mars"
       },
       "geometry": {
@@ -13753,7 +13753,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-hogs"
       },
       "geometry": {
@@ -14180,7 +14180,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-complexe",
+        "element": "secteurcomplexe",
         "groupe": "secteur-hogs"
       },
       "geometry": {
@@ -14552,7 +14552,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant",
+        "element": "secteurexigeant",
         "groupe": "secteur-vallieres"
       },
       "geometry": {
@@ -15033,7 +15033,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-exigeant"
+        "element": "secteurexigeant"
       },
       "geometry": {
         "coordinates": [
@@ -15730,7 +15730,7 @@
     {
       "type": "Feature",
       "properties": {
-        "element": "secteur-simple",
+        "element": "secteursimple",
         "name": ""
       },
       "geometry": {

@@ -22,7 +22,7 @@ export const styles = Mapbox.StyleSheet.create({
         }, Mapbox.InterpolationMode.Exponential),
       },
 
-    descente: {
+    ligne: {
         lineColor: 'yellow',
         lineWidth: 1.5,
         lineOpacity: Mapbox.StyleSheet.camera({
@@ -33,7 +33,6 @@ export const styles = Mapbox.StyleSheet.create({
 
     secteursimple: {
         fillColor: 'green',
-        //maxZoomLevel: 15.5,
         fillAntialias: true,
         fillOpacity: Mapbox.StyleSheet.camera({
           9: 0.0,
@@ -43,7 +42,6 @@ export const styles = Mapbox.StyleSheet.create({
 
       secteurexigeant: {
         fillColor: 'blue',
-        //maximumZoomLevel: 15.5,
         fillAntialias: true,
         fillOpacity: Mapbox.StyleSheet.camera({
           9: 0.0,

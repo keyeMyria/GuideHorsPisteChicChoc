@@ -6,12 +6,12 @@ export function getSourceData(source, propertie, type) {
 
     featuresToRender = { features : [], type: "FeatureCollection" };
 
-    source.forEach(element => {
-        element.features.filter(data => {
+    //source.forEach(element => {
+        source.features.filter(data => {
             if (data.properties[propertie] == type)
                 featuresToRender.features.push(data)
             });
-    });
+    //});
 
     //console.log(featuresToRender);
 

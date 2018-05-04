@@ -19,22 +19,9 @@ import {applySplineToLineString, addArrowToLigne} from './app/lib/geojson'
 
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_MAP_STYLE } from './utils/config';
 
-import SecteurComplexe from './app/components/layer/SecteurComplexe'
-import SecteurExigeant from './app/components/layer/SecteurExigeant'
-import SecteurSimple from './app/components/layer/SecteurSimple'
-import Descente from './app/components/layer/Descente'
-import AccessTrack from './app/components/layer/AccessTrack'
-import SkinTrack from './app/components/layer/SkinTrack'
-
-import MarkerParking from './app/components/layer/MarkerParking'
-import MarkerMontagne from './app/components/layer/MarkerMontagne'
-import MarkerRefuge from './app/components/layer/MarkerRefuge'
-import MarkerSecteur from './app/components/layer/MarkerSecteur'
-import MarkerZone from './app/components/layer/MarkerZone'
-
 import {generateLayers} from './app/components/layer/Layer'
 
-import HogsBack from './app/assets/all.json';
+import geoJsonData from './app/assets/all.json';
 
 import Permissions from 'react-native-permissions';
 
@@ -43,7 +30,7 @@ import Permissions from 'react-native-permissions';
 console.log('token',MAPBOX_ACCESS_TOKEN);
 Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
-const featuresCollection = [];
+//const featuresCollection = [];
 
 export default class App extends Component {
 
@@ -62,19 +49,21 @@ export default class App extends Component {
     this.onDidFinishLoadingMap = this.onDidFinishLoadingMap.bind(this);
     this.onPress = this.onPress.bind(this);
     
-
+    this.onRegionIsChanging = this.onRegionIsChanging.bind(this);
+    this.regionWillChange = this.regionWillChange.bind(this);
   }
 
 
   componentDidMount() {
     console.log('componentDidMount');
+
     Permissions.request('location').then(response => { // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
       this.setState({ locationPermission: response })
     })
 
-    applySplineToLineString(HogsBack);
-    addArrowToLigne(HogsBack);
-    featuresCollection.push(HogsBack);
+    applySplineToLineString(geoJsonData);
+    addArrowToLigne(geoJsonData);
+
     console.log('componentDidMount done');
   }
 
@@ -92,15 +81,32 @@ export default class App extends Component {
   }
 
   async onRegionDidChange() {
+    console.log('onRegionDidChange');
+    const zoom = await this._map.getZoom();
+    this.setState({ zoom });
+    //this.setState({ loading: false })
+  }
+
+  async regionWillChange() {
+    console.log('regionWillChange');
+    const zoom = await this._map.getZoom();
+    this.setState({ zoom });
+  }
+
+  async onRegionIsChanging() {
+    console.log('onRegionIsChanging');
     const zoom = await this._map.getZoom();
     this.setState({ zoom });
   }
 
   async onDidFinishLoadingMap() {
     console.log('onDidFinishLoadingMap');
-    const bounds = geojsonExtent(HogsBack);
+    const bounds = geojsonExtent(geoJsonData);
     await this._map.fitBounds([bounds[2], bounds[3]], [bounds[0], bounds[1]], [50, 100, 50, 50], 1); // [top, right, bottom, left]
     console.log('onDidFinishLoadingMap done');
+    
+    
+    
   }
 
   async onPress(e) {
@@ -133,8 +139,10 @@ export default class App extends Component {
 
     if (groupename.length > 0) {
       // on a matché un marker avec un groupename, on zoom sur celui-ci
-      const bounds = geojsonExtent(getSourceData(featuresCollection, 'groupe', groupename));
+      const featuresToBounds = getSourceData(geoJsonData, 'groupe', groupename);
+      const bounds = geojsonExtent(featuresToBounds);
       console.log('onPress zooming to groupename ' + groupename);
+      console.log(bounds, featuresToBounds);
       await this._map.fitBounds([bounds[2], bounds[3]], [bounds[0], bounds[1]], [50, 100, 50, 50], 150);
       return;
 
@@ -168,10 +176,12 @@ export default class App extends Component {
         </View>
       );
     }
-    
-    if (this.state.loading === true) {
-      return (
-        <View style={styles.container}>
+
+    return (
+      <View style={styles.container}>
+
+        {this.state.load === true ? (
+          <View style={styles.container}>
             <ActivityIndicator
               animating
               color='black'
@@ -179,49 +189,40 @@ export default class App extends Component {
               style={styles.activityIndicator}
             />
             <Text>Loading features...</Text>
+          </View>
+        ) : null}
+
+<View style={styles.container}>
+ 
+
+          <Mapbox.MapView
+              styleURL={MAPBOX_MAP_STYLE}
+              logoEnabled={false}
+              ref={(c) => (this._map = c)}
+              onRegionDidChange={this.onRegionDidChange}
+              onRegionIsChanging={this.onRegionIsChanging}
+              onRegionWillChange={this.onRegionWillChange}
+              onPress={this.onPress}
+              surfaceView={true}
+              //zoomLevel={15}
+              //centerCoordinate={[-66.110811, 48.860292]}
+              style={styles.container}
+              showUserLocation={true}
+              onUserLocationUpdate={this.onUserLocationUpdate}
+              onDidFinishLoadingMap={this.onDidFinishLoadingMap}
+              pitchEnabled={false}
+              rotateEnabled={false}
+              compassEnabled={true}
+              //regionWillChangeDebounceTime={10} // default: 10
+              //regionDidChangeDebounceTime={10}  // default: 500
+              >
+
+            {generateLayers(geoJsonData)}
+            
+          </Mapbox.MapView>
+
+          <Text style={styles.text}>Zoom: {zoom}</Text>
         </View>
-      );
-    }
-
-    return (
-      <View style={styles.container}>
-        <Mapbox.MapView
-            styleURL={MAPBOX_MAP_STYLE}
-            ref={(c) => (this._map = c)}
-            onRegionDidChange={this.onRegionDidChange}
-            onRegionIsChanging={this.onRegionDidChange}
-            onPress={this.onPress}
-            //zoomLevel={15}
-            //centerCoordinate={[-66.110811, 48.860292]}
-            style={styles.container}
-            showUserLocation={true}
-            onUserLocationUpdate={this.onUserLocationUpdate}
-            onDidFinishLoadingMap={this.onDidFinishLoadingMap}
-            pitchEnabled={false}
-            rotateEnabled={false}
-            compassEnabled={false}>
-          <SecteurComplexe source={featuresCollection}/>
-          <SecteurExigeant source={featuresCollection}/>
-          <SecteurSimple source={featuresCollection}/>
-          <Descente source={featuresCollection}/>
-          <AccessTrack source={featuresCollection}/>
-          <SkinTrack source={featuresCollection}/>
-
-          {generateLayers(featuresCollection)}
-
-          {/*
-          <Stats lastLocation={this.state.lastLocation} zoom={this.state.zoom}></Stats>
-
-          <MarkerMontagne source={featuresCollection}/>
-          <MarkerSecteur source={featuresCollection}/>
-          <MarkerZone source={featuresCollection}/>
-          <MarkerParking source={featuresCollection}/>
-          <MarkerRefuge source={featuresCollection}/>
-
-          */}
-           
-        </Mapbox.MapView>
-        <Text style={styles.text}>Zoom: {zoom}</Text>
         
       </View>
     );
@@ -229,6 +230,11 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
+  test: {
+    flex: 1,
+    flexDirection: 'column',
+    position: 'absolute'
+  },
   container: {
     flex: 1,
   },
@@ -239,7 +245,6 @@ const styles = StyleSheet.create({
     height: 80
   },
   text: {
-    //borderRadius: 30,
     flex: 1,
     position: 'absolute',
     top: 10,

@@ -28,6 +28,30 @@
             "type": "marker",
             "minZoom":9, 
             "maxZoom":11
+        },
+        {
+            "name": "accesstrack",
+            "type": "ligne"
+        },
+        {
+            "name": "ligne",
+            "type": "ligne"
+        },
+        {
+            "name": "skintrack",
+            "type": "ligne"
+        },
+        {
+            "name": "secteursimple",
+            "type": "secteur"
+        },
+        {
+            "name": "secteurexigeant",
+            "type": "secteur"
+        },
+        {
+            "name": "secteurcomplexe",
+            "type": "secteur"
         }
 ]
 

@@ -10,7 +10,6 @@ export function generateLayers(source) {
     const layers = [];
 
     geoJsonLayer.map(layer => {
-        //console.log(layer);
 
         var featuresToRender = getSourceData(source, 'element', layer.name);
 
@@ -31,7 +30,42 @@ export function generateLayers(source) {
                 </Mapbox.ShapeSource>
             );
         }
+        else if (layer.type == 'ligne') {
+            layers.push (
+                <Mapbox.ShapeSource 
+                key={layer.name} 
+                id={layer.name} 
+                shape={featuresToRender}>
+                    <Mapbox.LineLayer
+                        id={layer.name} 
+                        style={styles[layer.name]}
+                    />
+                </Mapbox.ShapeSource>
+            );
+        }
+        else if (layer.type == 'secteur') {
+            layers.push (
+                <Mapbox.ShapeSource 
+                    key={layer.name} 
+                    id={layer.name}
+                    shape={featuresToRender}>
+                    <Mapbox.FillLayer
+                        id={layer.name}
+                        style={styles[layer.name]}
+                    />
+                </Mapbox.ShapeSource>
+            );
+        }
+
+
+
+
+
     });
+
+
+
+
 
     return layers;
 }
