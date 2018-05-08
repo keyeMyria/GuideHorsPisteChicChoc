@@ -3,7 +3,7 @@ import Mapbox from '@mapbox/react-native-mapbox-gl';
 
 import {getSourceData} from '../../lib/geojson'
 import {styles} from './Style'
-import geoJsonLayer from './geoJsonLayer.json'
+import geoJsonLayer from '../../assets/geoJsonLayer.json'
 
 export function generateLayers(source) {
 

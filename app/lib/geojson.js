@@ -67,3 +67,16 @@ export function addArrowToLigne(source) {
     });
 
 }
+
+export function getGroupeNameFromFeatures(selectedFeatures) {
+    const containsGroupeName = item => {
+      if (item.properties.groupename) 
+        if (item.properties.groupename.length > 0)
+          return true;
+
+      return false;
+    };
+    const extractGroupeName = item => item.properties.groupename;
+
+    return selectedFeatures.features.filter(containsGroupeName).map(extractGroupeName);
+  }
