@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import LoadingScreen from './screen/LoadingScreen'
-import MapScreen from './screen/MapScreen/MapScreen'
+import MapScreen from './screen/MapScreen'
 import Routes from './screen/Routes'
 
 import Permissions from 'react-native-permissions';

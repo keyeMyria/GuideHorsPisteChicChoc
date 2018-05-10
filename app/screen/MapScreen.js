@@ -7,10 +7,11 @@ import {
   View,
   Text,
   ToastAndroid,
-  ActivityIndicator
+  ActivityIndicator,
+  Image
 } from 'react-native';
 
-import Carte from '../../containers/Carte'
+import Carte from '../components/Carte'
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -22,6 +23,16 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 
 export default class MapScreen extends Component {
+
+  static navigationOptions = {
+    drawerLabel: 'Screen One',
+    drawerIcon: () => (
+      <Image
+        source={require('../assets/aq.png')}
+        style={{width: 30, height: 30, borderRadius: 15}}
+      />
+    )
+  }
 
 //static navigationOptions = ({ navigation, screenProps }) => ({
 //    drawerLabel: "Map",
@@ -44,6 +55,10 @@ export default class MapScreen extends Component {
     //};
   }
 
+  componentWillUnmount() {
+    console.log('MapScreen componentWillUnmount');
+  }
+
   componentDidMount() {
     console.log(' MapScreen componentDidMount');
 
@@ -64,8 +79,8 @@ export default class MapScreen extends Component {
             //top: 10, 
             //left: 10 
             }}>
-            <TouchableOpacity onPress={() => this.props.navigation.openDrawer()} style={{ flexDirection: 'row' }}>
-              <Icon name="menu" size={30}/><Text>Menu</Text>
+            <TouchableOpacity onPress={() => this.props.navigation.openDrawer()} style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Icon name="menu" size={30}/><Text style={{ fontSize:24}}> Menu</Text>
             </TouchableOpacity>
           </View>
           

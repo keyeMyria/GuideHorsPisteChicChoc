@@ -18,7 +18,7 @@ import geojsonExtent from '@mapbox/geojson-extent';
 import {getSourceData, applySplineToLineString, addArrowToLigne, getGroupeNameFromFeatures} from '../lib/geojson'
 import {getScreenBoundingBox} from '../lib/screen'
 
-import {generateLayers} from '../components/layer/Layer'
+import {generateLayers} from './layer/Layer'
 
 import geoJsonData from '../assets/all.json';
 import geoJsonLayer from '../assets/geoJsonLayer.json'
@@ -42,7 +42,7 @@ export default class Carte extends Component {
     this.onDidFinishLoadingMap = this.onDidFinishLoadingMap.bind(this);
     this.onPress = this.onPress.bind(this);
     
-    this.onRegionIsChanging = this.onRegionIsChanging.bind(this);
+    //this.onRegionIsChanging = this.onRegionIsChanging.bind(this);
     this.regionWillChange = this.regionWillChange.bind(this);
   }
 
@@ -82,11 +82,11 @@ export default class Carte extends Component {
     this.setState({ zoom });
   }
 
-  async onRegionIsChanging() {
-    console.log('onRegionIsChanging');
-    const zoom = await this._map.getZoom();
-    this.setState({ zoom });
-  }
+  //async onRegionIsChanging() {
+  //  console.log('onRegionIsChanging');
+  //  const zoom = await this._map.getZoom();
+  //  this.setState({ zoom });
+  //}
 
   async onDidFinishLoadingMap() {
     console.log('onDidFinishLoadingMap');
@@ -137,7 +137,7 @@ export default class Carte extends Component {
             logoEnabled={false}
             ref={(c) => (this._map = c)}
             onRegionDidChange={this.onRegionDidChange}
-            onRegionIsChanging={this.onRegionIsChanging}
+            //onRegionIsChanging={this.onRegionIsChanging}
             onRegionWillChange={this.onRegionWillChange}
             onPress={this.onPress}
             zoomLevel={7}

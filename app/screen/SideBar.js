@@ -1,15 +1,16 @@
 import React from "react";
 import { AppRegistry, Image, Dimensions, ScrollView, View, StyleSheet, TouchableOpacity  } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
-import { DrawerItems, StackActions, NavigationActions } from "react-navigation";
+import { DrawerItems, StackActions, NavigationActions, SafeAreaView } from "react-navigation";
+import DrawerNavigatorItems from '../components/DrawerNavigatorItems'
 
 export default class SideBar extends React.Component {
 
   _navigate(route) {
 
     const navigateAction = NavigationActions.navigate({
-      routeName: 'Map',
-    
+      routeName: route,
+      //routeName: 'Map',
       params: {},
     
     });
@@ -27,7 +28,7 @@ export default class SideBar extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('SideBar', Dimensions.get('window'));
+    console.log('SideBar', this.props);
 
   }
 
@@ -55,20 +56,37 @@ export default class SideBar extends React.Component {
                 left : 20, 
                 position : 'absolute' ,  }}
 
-              source={require('../../assets/aq.png')}
+              source={require('../assets/aq.png')}
               //source={{uri: 'aq.png'}}
           />
 
+            <ScrollView>
+              
+                <DrawerItems {...this.props} />
+             
+            </ScrollView>
+{/* 
+<SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
+ </SafeAreaView>
+*/}
           <ScrollView>
-          <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() =>
-              this._navigate("Map", { isStatusBarHidden: false })}
-            >
 
-            <Text style={styles.menuItemText}>Cartes</Text>
-          </TouchableOpacity>
+
+
+            <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => this._navigate("Map")}
+              >
+              <Text style={styles.menuItemText}>Cartes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => this._navigate("Meteo")}
+              >
+              <Text style={styles.menuItemText}>Meteo</Text>
+            </TouchableOpacity>
           </ScrollView>
+            
       </View>
     );
   }
