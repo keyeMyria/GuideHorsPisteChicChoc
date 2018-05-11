@@ -6,6 +6,7 @@ import {
   View,
   ToastAndroid,
   ActivityIndicator,
+  Image,
   YellowBox
 } from 'react-native';
 
@@ -24,13 +25,12 @@ export default class App extends Component {
 
     this.state = {
       locationPermission: 'undetermined',
-      loading: false
     };
   }
 
   componentDidMount() {
     console.log('componentDidMount');
-
+    
     Permissions.request('location').then(response => { // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
       this.setState({ locationPermission: response })
     })

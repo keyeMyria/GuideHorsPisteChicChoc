@@ -11,62 +11,27 @@ import {
 
 import SideBar from "./SideBar";
 import MapScreen from "./MapScreen";
-import BulletinMeteoScreen from "./BulletinMeteoScreen";
+import BulletinAvalanche from "./BulletinAvalanche";
+import PrevisionMeteo from "./PrevisionMeteo";
+import WebCamera from "./WebCamera";
 
 import { createDrawerNavigator, createStackNavigator, createTabNavigator } from 'react-navigation';
 
-//const MainScreenNavigator = createTabNavigator({
-//  Map: { 
-//    screen: MapScreen,
-//    navigationOptions: {
-//      drawerLabel: 'Carte'
-//      }    
-//  },
-//  Meteo: { 
-//    screen: BulletinMeteoScreen,
-//    navigationOptions: {
-//      drawerLabel: 'Bulletin Météo'
-//    }    
-//  },
-//},
-//  {
-//    navigationOptions: ({ navigation }) => ({
-//        tabBarVisible: false,
-//        swipeEnabled: false
-//      }),
-//  });
-//const Routes = createDrawerNavigator(
-//{
-//  Main: { screen: MainScreenNavigator },
-//}, 
-//{
-//  contentComponent: props => <SideBar {...props} />
-//}
-//);
+
 
 
 const Routes = createDrawerNavigator(
-  {
-    Map: { screen: MapScreen },
-    Meteo: { screen: BulletinMeteoScreen },
-  }, 
-  {
-    contentComponent: props => <SideBar {...props} />
-  }
-  );
+    {
+        Map: { screen: MapScreen },
+        BulletinAvalanche: { screen: BulletinAvalanche },
+        PrevisionMeteo: { screen: PrevisionMeteo },
+        WebCamera: { screen: WebCamera },
+    }, 
+    {
+        contentComponent: props => <SideBar {...props} />
+    }
+    );
  export default Routes;
 
 
-
-// const MainScreenNavigator = createStackNavigator({
-//  Map: { screen: MapScreen },
-//});
-//const Routes = createDrawerNavigator(
-//{
-//  Main: { screen: MainScreenNavigator },
-//}, 
-//{
-//  contentComponent: props => <SideBar {...props} />
-//}
-//);
 

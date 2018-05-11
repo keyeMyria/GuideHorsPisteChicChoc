@@ -1,92 +1,45 @@
 import React from "react";
-import { AppRegistry, Image, Dimensions, ScrollView, View, StyleSheet, TouchableOpacity  } from "react-native";
-import { Container, Content, Text, List, ListItem } from "native-base";
+import { AppRegistry, Image, Dimensions, ScrollView, View, StyleSheet, TouchableOpacity, ImageBackground   } from "react-native";
 import { DrawerItems, StackActions, NavigationActions, SafeAreaView } from "react-navigation";
-import DrawerNavigatorItems from '../components/DrawerNavigatorItems'
 
 export default class SideBar extends React.Component {
-
-  _navigate(route) {
-
-    const navigateAction = NavigationActions.navigate({
-      routeName: route,
-      //routeName: 'Map',
-      params: {},
-    
-    });
-    
-    this.props.navigation.dispatch(navigateAction);
-
-    //return this.props.navigation.dispatch(
-    //  StackActions.reset({
-    ///    index: 0,
-    //    actions: [NavigationActions.navigate({ routeName: `${route}` })]
-    //  })
-    //);
-  }
-
-  constructor(props) {
-    super(props);
-
-    console.log('SideBar', this.props);
-
-  }
-
   render() {
     return (
       <View style={{flex: 1}}>
-          <Image
-            
-            source={{uri: 'ski'}}//source={require('../../assets/ski.jpg')}
-
+          <ImageBackground 
+            source={{uri: 'ski'}}
             style={{
-              //flex: 0.3, 
+              flex: 0.3, 
+              alignContent: 'center',
               //width: null,
               //resizeMode: 'contain',
               //height: 200
-              alignSelf: "stretch", aspectRatio: 666/500, resizeMode: 'stretch'
+              //alignSelf: "stretch", aspectRatio: 800/443, resizeMode: 'stretch'
             }}
-          />
+          >
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
           <Image
               style={{ 
                 height: 92, 
                 width: 205, 
-                
-                top : 20, 
-                left : 20, 
-                position : 'absolute' ,  }}
+                alignSelf: 'center',
+                alignContent: 'center',
+              }}
 
               source={require('../assets/aq.png')}
               //source={{uri: 'aq.png'}}
           />
+          </View>
+          </ImageBackground >
 
-            <ScrollView>
-              
-                <DrawerItems {...this.props} />
-             
-            </ScrollView>
-{/* 
-<SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
- </SafeAreaView>
-*/}
           <ScrollView>
-
-
-
-            <TouchableOpacity
-                style={styles.menuItem}
-                onPress={() => this._navigate("Map")}
-              >
-              <Text style={styles.menuItemText}>Cartes</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.menuItem}
-                onPress={() => this._navigate("Meteo")}
-              >
-              <Text style={styles.menuItemText}>Meteo</Text>
-            </TouchableOpacity>
+              <DrawerItems {...this.props} />
           </ScrollView>
-            
       </View>
     );
   }
@@ -107,5 +60,3 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 });
-
-//<DrawerItems {...this.props} />

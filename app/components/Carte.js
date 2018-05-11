@@ -24,7 +24,7 @@ import geoJsonData from '../assets/all.json';
 import geoJsonLayer from '../assets/geoJsonLayer.json'
 
 
-
+import SplashScreen from 'react-native-splash-screen';
 
 
 export default class Carte extends Component {
@@ -91,6 +91,7 @@ export default class Carte extends Component {
   async onDidFinishLoadingMap() {
     console.log('onDidFinishLoadingMap');
     await this.zoomToFeatures(geoJsonData);
+    SplashScreen.hide();
     console.log('onDidFinishLoadingMap done');
     
   }
@@ -155,7 +156,7 @@ export default class Carte extends Component {
           
         </Mapbox.MapView>
 
-        <Text style={styles.text}>Zoom: {zoom}</Text>
+        <Text style={styles.text}>{zoom}</Text>
         
       </View>
     );
@@ -171,16 +172,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  activityIndicator: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 80
-  },
   text: {
     flex: 1,
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: 1,
+    right: 1,
+    fontSize:10
   },
 });

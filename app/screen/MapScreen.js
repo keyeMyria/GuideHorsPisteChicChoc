@@ -13,38 +13,14 @@ import {
 
 import Carte from '../components/Carte'
 
-import Icon from "react-native-vector-icons/MaterialIcons";
-
-//import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
-
-//import { StatusBar } from "react-native";
-
-//import Permissions from 'react-native-permissions';
-
-
+import Icon from "react-native-vector-icons/Entypo";
 export default class MapScreen extends Component {
 
   static navigationOptions = {
-    drawerLabel: 'Screen One',
-    drawerIcon: () => (
-      <Image
-        source={require('../assets/aq.png')}
-        style={{width: 30, height: 30, borderRadius: 15}}
-      />
-    )
+    drawerLabel: 'Cartes des sentiers',
+    drawerIcon: () => ( <Icon name="map" size={20}/> )
   }
 
-//static navigationOptions = ({ navigation, screenProps }) => ({
-//    drawerLabel: "Map",
-//    title: "Avalanche Quebec",
-//    headerLeft: (
-//        <View style={{ paddingHorizontal: 10 }}>
-//          <TouchableOpacity onPress={() => navigation.openDrawer()}>
-//            <Icon name="menu" size={30}/>
-//          </TouchableOpacity>
-//        </View>
-//      )
-//});
 
   constructor(props) {
     super(props);
@@ -80,7 +56,7 @@ export default class MapScreen extends Component {
             //left: 10 
             }}>
             <TouchableOpacity onPress={() => this.props.navigation.openDrawer()} style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Icon name="menu" size={30}/><Text style={{ fontSize:24}}> Menu</Text>
+              <Icon name="menu" size={36}/>{/*<Text style={{ fontSize:24}}> Menu</Text>*/}
             </TouchableOpacity>
           </View>
           
