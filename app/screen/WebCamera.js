@@ -4,10 +4,10 @@ import Icon from "react-native-vector-icons/Entypo";
 
 export default class WebCamera extends React.Component {
 
-    static navigationOptions = {
-        drawerLabel: 'Web caméra',
-        drawerIcon: () => ( <Icon name="camera" size={20}/> )
-      }
+    //static navigationOptions = {
+    //    drawerLabel: 'Web caméra',
+    //    drawerIcon: () => ( <Icon name="camera" size={20}/> )
+    //  }
 
   render() {
     return (

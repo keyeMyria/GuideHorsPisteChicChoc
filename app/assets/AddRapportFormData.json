@@ -1,0 +1,44 @@
+{
+  "taille_avalanche": {
+    "option_description": [
+      ["Taille 1", "Relativement sans danger pour les personnes"],
+      ["Taille 2", "Peut ensevelir, blesser ou tuer une personne"],
+      [
+        "Taille 3",
+        "Peut ensevelir et détruire une voiture, endommager un camion, détruire une maison ou briser quelques arbres"
+      ],
+      [
+        "Taille 4",
+        "Peut détruire un wagon, un gros camion, plusieurs édifices ou une forêt de 4 hectares"
+      ],
+      [
+        "Taille 5",
+        "Avalanche la plus grosse connue. Peut détruire un village ou une forêt de 40 hectares"
+      ]
+    ],
+    "titre": "Taille d'avalanche:"
+  },
+  "declenchement": {
+    "option_description": [["Naturel", ""], ["Humain", ""], ["Inconnu", ""]],
+    "titre": "Déclenchement:",
+    "soustitre": "Qu'est-ce qui a déclenché l'avalanche?"
+  },
+  "type_avalanche": {
+    "option_description": [
+      ["Avalanche de plaque", ""],
+      ["Avalanche de neige poudreuse", ""],
+      ["Avalanche de neige mouillée", ""]
+    ],
+    "titre": "Type d'avalanche:"
+  },
+  "plan_glissement": {
+    "option_description": [
+      ["Sol", ""],
+      ["Croûte", ""],
+      ["Neige dure", ""],
+      ["Neige molle", ""]
+    ],
+    "titre": "Plan de glissement:",
+    "soustitre": "La couche sur laquelle l'avalanche à glissé"
+  }
+}

@@ -4,10 +4,10 @@ import Icon from "react-native-vector-icons/Entypo";
 
 export default class BulletinAvalanche extends React.Component {
 
-    static navigationOptions = {
-        drawerLabel: 'À propos',
-        drawerIcon: () => ( <Icon name="thumbs-up" size={20}/> )
-      }
+    //static navigationOptions = {
+    //    drawerLabel: 'À propos',
+    //    drawerIcon: () => ( <Icon name="thumbs-up" size={20}/> )
+    //  }
 
   render() {
     return (

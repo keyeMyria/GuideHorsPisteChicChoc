@@ -4,10 +4,10 @@ import Icon from "react-native-vector-icons/Entypo";
 
 export default class BulletinAvalanche extends React.Component {
 
-    static navigationOptions = {
-        drawerLabel: 'Prévisions météo',
-        drawerIcon: () => ( <Icon name="icloud" size={20}/> )
-      }
+    //static navigationOptions = {
+    //    drawerLabel: 'Prévisions météo',
+    //    drawerIcon: () => ( <Icon name="icloud" size={20}/> )
+    //  }
 
   render() {
     return (
