@@ -1,82 +1,97 @@
-import destination from '@turf/destination';
-import bearing from '@turf/bearing';
-import bezier from 'turf-bezier';
+import destination from "@turf/destination";
+import bearing from "@turf/bearing";
+import bezier from "turf-bezier";
 
 export function getSourceData(source, propertie, type) {
+  const featuresToRender = { features: [], type: "FeatureCollection" };
 
-    featuresToRender = { features : [], type: "FeatureCollection" };
+  source.features.filter(data => {
+    if (data.properties[propertie] == type)
+      featuresToRender.features.push(data);
+  });
 
-    //source.forEach(element => {
-        source.features.filter(data => {
-            if (data.properties[propertie] == type)
-                featuresToRender.features.push(data)
-            });
-    //});
+  //console.log(featuresToRender);
 
-    //console.log(featuresToRender);
+  return featuresToRender;
+}
 
-    return featuresToRender;
+export function getBoundingBoxFromGroupe(source, propertie, type) {
+  const featuresToRender = { features: [], type: "FeatureCollection" };
+
+  source.features.filter(data => {
+    if (
+      data.properties[propertie] == type &&
+      data.properties.element == "boundingbox"
+    )
+      featuresToRender.features.push(data);
+  });
+
+  //console.log(featuresToRender);
+
+  return featuresToRender;
 }
 
 export function applySplineToLineString(source) {
+  source.features.map(data => {
+    if (data.properties.element == "ligne") {
+      var y = Object.assign({}, data);
+      const z = bezier(y, [(resolution = 5000)], [(sharpness = 0.7)]);
+      Object.assign(data, z);
+    }
 
-    source.features.map(data => {
-        if (data.properties.element == 'ligne') {
-            var y = Object.assign({}, data); 
-            z = bezier(y, [resolution=5000], [sharpness=0.7]);
-            Object.assign(data, z);
-        }
-
-        return data;
-    });
-
+    return data;
+  });
 }
 
 export function addArrowToLigne(source) {
+  source.features.map(data => {
+    if (data.properties.element == "ligne") {
+      var y = Object.assign({}, data);
+      //console.log(y.geometry.coordinates.length);
 
-    source.features.map(data => {
-        if (data.properties.element == 'ligne') {
+      const lastpoint =
+        y.geometry.coordinates[y.geometry.coordinates.length - 1];
+      const refpoint =
+        y.geometry.coordinates[y.geometry.coordinates.length - 20];
 
-            var y = Object.assign({}, data); 
-            //console.log(y.geometry.coordinates.length);
+      //console.log(lastpoint);
 
-            const lastpoint = y.geometry.coordinates[y.geometry.coordinates.length-1];
-            const refpoint = y.geometry.coordinates[y.geometry.coordinates.length-20];
+      const angle = bearing(lastpoint, refpoint);
+      //console.log(angle);
+      const firstarrow = destination(lastpoint, 30, angle + 35, {
+        units: "meters"
+      });
+      const secondarrow = destination(lastpoint, 30, angle - 35, {
+        units: "meters"
+      });
 
-            //console.log(lastpoint);
+      //console.log(firstarrow.geometry.coordinates);
 
-            const angle = bearing(lastpoint,refpoint);
-            //console.log(angle);
-            const firstarrow = destination(lastpoint,30,angle+35,{units: 'meters'})
-            const secondarrow = destination(lastpoint,30,angle-35,{units: 'meters'})
+      y.geometry.coordinates.push(firstarrow.geometry.coordinates);
 
-            //console.log(firstarrow.geometry.coordinates);
+      //y.geometry.coordinates.push(refpoint);
 
-            y.geometry.coordinates.push(firstarrow.geometry.coordinates);
+      y.geometry.coordinates.push(lastpoint);
 
-            //y.geometry.coordinates.push(refpoint);
+      y.geometry.coordinates.push(secondarrow.geometry.coordinates);
 
-            y.geometry.coordinates.push(lastpoint);
+      Object.assign(data, y);
+    }
 
-            y.geometry.coordinates.push(secondarrow.geometry.coordinates);
-
-            Object.assign(data, y);
-        }
-
-        return data;
-    });
-
+    return data;
+  });
 }
 
 export function getGroupeNameFromFeatures(selectedFeatures) {
-    const containsGroupeName = item => {
-      if (item.properties.groupename) 
-        if (item.properties.groupename.length > 0)
-          return true;
+  const containsGroupeName = item => {
+    if (item.properties.groupename)
+      if (item.properties.groupename.length > 0) return true;
 
-      return false;
-    };
-    const extractGroupeName = item => item.properties.groupename;
+    return false;
+  };
+  const extractGroupeName = item => item.properties.groupename;
 
-    return selectedFeatures.features.filter(containsGroupeName).map(extractGroupeName);
-  }
+  return selectedFeatures.features
+    .filter(containsGroupeName)
+    .map(extractGroupeName);
+}

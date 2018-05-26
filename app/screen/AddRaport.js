@@ -71,7 +71,7 @@ class BulletinAvalanche extends Component {
       type_avalanche: 1,
       plan_glissement: 1,
       emplacement: "",
-      infos_complementaires: ""
+      info_complementaires: ""
     };
   }
 
@@ -188,7 +188,7 @@ class BulletinAvalanche extends Component {
                     rowSpan={5}
                     bordered
                     onChangeText={text =>
-                      this.setState({ infos_complementaires: text })
+                      this.setState({ info_complementaires: text })
                     }
                     placeholder="Veuillez indiquer si il y a eu des victimes, ainsi que vos coordonnées afin de vous contacter si nous avons besoins de plus d'informations."
                   />
@@ -201,6 +201,7 @@ class BulletinAvalanche extends Component {
               success
               style={{ marginTop: 15 }}
               onPress={() => {
+                console.log(this.state);
                 this.props.dispatch(addRapport(this.state));
                 this.props.navigation.goBack();
               }}
