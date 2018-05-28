@@ -2207,7 +2207,8 @@
       "properties": {
         "element": "boundingbox",
         "groupe": "secteur-blanche",
-        "zoom": "secteur"
+        "zoom": "secteur",
+        "name": "Blanche Lamontagne"
       },
       "geometry": {
         "coordinates": [
@@ -3635,7 +3636,8 @@
       "properties": {
         "groupe": "zone-chicchoc",
         "element": "boundingbox",
-        "zoom": "zone"
+        "zoom": "zone",
+        "name": "Chic Chocs"
       },
       "geometry": {
         "coordinates": [
@@ -3645,7 +3647,7 @@
               49.035343
             ],
             [
-              -65.947189,
+              -65.947188,
               49.024513
             ],
             [
@@ -4933,7 +4935,8 @@
       "properties": {
         "element": "boundingbox",
         "groupe": "montagne-montalbert",
-        "zoom": "zone"
+        "zoom": "zone",
+        "name": "Mont Albert"
       },
       "geometry": {
         "coordinates": [
@@ -9093,7 +9096,7 @@
             49.009249
           ],
           [
-            -66.009925,
+            -66.009924,
             49.008138
           ],
           [
@@ -9113,8 +9116,8 @@
             49.00387
           ],
           [
-            -66.009845,
-            49.003882
+            -66.009786,
+            49.003832
           ]
         ],
         "type": "LineString"
@@ -9813,7 +9816,8 @@
       "properties": {
         "element": "boundingbox",
         "groupe": "secteur-vallieres",
-        "zoom": "secteur"
+        "zoom": "secteur",
+        "name": "Vallières de Saint Réal"
       },
       "geometry": {
         "coordinates": [
@@ -9913,34 +9917,35 @@
       "type": "Feature",
       "properties": {
         "element": "boundingbox",
-        "groupe": "zone"
+        "groupe": "zone",
+        "name": "Gaspesie"
       },
       "geometry": {
         "coordinates": [
           [
             [
-              -66.36186,
-              49.065694
+              -66.318707,
+              49.085034
             ],
             [
-              -66.723182,
-              48.840667
+              -66.680029,
+              48.860007
             ],
             [
-              -66.036669,
-              48.726886
+              -65.993516,
+              48.746226
             ],
             [
-              -65.314723,
-              48.961457
+              -65.27157,
+              48.980797
             ],
             [
-              -65.824072,
-              49.25421
+              -65.780919,
+              49.27355
             ],
             [
-              -66.36186,
-              49.065694
+              -66.318707,
+              49.085034
             ]
           ]
         ],
@@ -13076,7 +13081,8 @@
       "properties": {
         "element": "boundingbox",
         "groupe": "montagne-lyall",
-        "zoom": "secteur"
+        "zoom": "secteur",
+        "name": "Mont Lyall"
       },
       "geometry": {
         "coordinates": [
@@ -14796,7 +14802,8 @@
       "properties": {
         "groupe": "secteur-hogs",
         "element": "boundingbox",
-        "zoom": "secteur"
+        "zoom": "secteur",
+        "name": "Hog's Back"
       },
       "geometry": {
         "coordinates": [
@@ -15030,7 +15037,8 @@
       "properties": {
         "element": "boundingbox",
         "groupe": "montagne-mars",
-        "zoom": "secteur"
+        "zoom": "secteur",
+        "name": "Champs de Mars"
       },
       "geometry": {
         "coordinates": [
@@ -15060,11 +15068,11 @@
               48.877894
             ],
             [
-              -66.081256,
+              -66.081255,
               48.88069
             ],
             [
-              -66.094168,
+              -66.094167,
               48.875097
             ],
             [
@@ -16015,7 +16023,8 @@
       "properties": {
         "element": "boundingbox",
         "groupe": "secteur-mines",
-        "zoom": "secteur"
+        "zoom": "secteur",
+        "name": "Mines Madeleine"
       },
       "geometry": {
         "coordinates": [

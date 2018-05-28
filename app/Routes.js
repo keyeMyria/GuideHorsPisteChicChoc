@@ -10,6 +10,7 @@ import WebCamera from "./screen/WebCamera";
 import RapportObservation from "./screen/RapportObservation";
 import About from "./screen/About";
 import AddRaport from "./screen/AddRaport";
+import CarteHorsConnection from "./screen/CarteHorsConnection";
 
 import { createDrawerNavigator, createStackNavigator } from "react-navigation";
 
@@ -60,6 +61,13 @@ const Routes = createDrawerNavigator(
       navigationOptions: {
         drawerLabel: "Rapport d'observation",
         drawerIcon: () => <Icon name="megaphone" size={20} />
+      }
+    },
+    CarteHorsConnection: {
+      screen: CarteHorsConnection,
+      navigationOptions: {
+        drawerLabel: "Cartes Hors Connection",
+        drawerIcon: () => <Icon name="download" size={20} />
       }
     },
     About: {
