@@ -6,23 +6,22 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { configureAppStore } from "./store";
 
-import Reactotron from "reactotron-react-native";
+import SplashScreen from "react-native-splash-screen";
 
 //import rootReducer from "./reducers";
 //import { addRapport } from "./actions";
 //import { applyMiddleware, createStore } from "redux";
 //import logger from "redux-logger";
-import { PURGE } from "redux-persist";
+//import { PURGE } from "redux-persist";
 
 //import { applySplineToLineString, addArrowToLigne } from "../lib/geojson";
 //import geoJsonData from "../assets/all.json";
 
+import { prepareGeojsonData } from "./lib/geojsonManager";
+
 import Routes from "./Routes";
 
-YellowBox.ignoreWarnings([
-  "Warning: isMounted(...) is deprecated",
-  "Module RCTImageLoader"
-]);
+YellowBox.ignoreWarnings(["Warning: isMounted(...) is deprecated", "Module RCTImageLoader"]);
 
 //const store = createStore(rootReducer, applyMiddleware(logger));
 
@@ -71,12 +70,16 @@ export default class App extends Component {
       this.setState({ locationPermission: response });
     });
 
-    //applySplineToLineString(geoJsonData);
-    //addArrowToLigne(geoJsonData);
+    prepareGeojsonData();
+
+    SplashScreen.hide();
+  }
+
+  componentDidCatch(errorString, errorInfo) {
+    console.log(errorString, errorInfo);
   }
 
   render() {
-    Reactotron.log("hello rendering world");
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor}>

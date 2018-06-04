@@ -11,20 +11,14 @@ export default class SideBar extends React.Component {
           style={{
             flex: 0.3,
             alignContent: "center"
-            //width: null,
-            //resizeMode: 'contain',
-            //height: 200
-            //alignSelf: "stretch", aspectRatio: 800/443, resizeMode: 'stretch'
-          }}
-        >
+          }}>
           <View
             style={{
               flex: 1,
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center"
-            }}
-          >
+            }}>
             <Image
               style={{
                 height: 92,
@@ -32,8 +26,8 @@ export default class SideBar extends React.Component {
                 alignSelf: "center",
                 alignContent: "center"
               }}
-              source={require("../assets/aq.png")}
-              //source={{uri: 'aq.png'}}
+              //source={require("../assets/aq.png")}
+              source={{ uri: "aq" }}
             />
           </View>
         </ImageBackground>

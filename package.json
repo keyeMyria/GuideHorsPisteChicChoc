@@ -18,6 +18,7 @@
     "@mapbox/geo-viewport": "^0.2.2",
     "@mapbox/geojson-extent": "^0.3.2",
     "@mapbox/react-native-mapbox-gl": "^6.1.2-beta",
+    "@turf/bezier-spline": "^6.0.2",
     "@turf/destination": "^6.0.1",
     "@turf/helpers": "^6.1.4",
     "@turf/turf": "^5.1.6",
@@ -25,6 +26,7 @@
     "native-base": "^2.4.5",
     "npm-check": "^5.7.1",
     "react": "16.3.1",
+    "react-dom": "^16.4.0",
     "react-native": "^0.55.4",
     "react-native-datepicker": "^1.7.2",
     "react-native-image-picker": "^0.26.10",
@@ -45,15 +47,24 @@
     "babel-jest": "22.4.3",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react-native": "4.0.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.8.2",
     "flow-bin": "^0.71.0",
     "jest": "22.4.3",
+    "jest-serializer-enzyme": "^1.0.0",
     "prettier-eslint": "^8.8.1",
+    "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "16.3.1",
     "reactotron-react-native": "^1.14.0"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/enzymeSetup.js"
   }
 }

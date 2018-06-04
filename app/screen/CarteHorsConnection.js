@@ -8,12 +8,9 @@ import { MAPBOX_MAP_STYLE } from "../utils/conf";
 
 import geoJsonData from "../assets/all.json";
 
-import { getSourceData } from "../lib/geojson";
+import { getSourceData } from "../lib/geojsonManager";
 
 import geojsonExtent from "@mapbox/geojson-extent";
-
-//var downloadItems = [];
-//var featuresToBounds = {};
 
 export default class CarteHorsConnection extends React.Component {
   static propTypes = {
@@ -23,7 +20,7 @@ export default class CarteHorsConnection extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggleDownload = this.toggleDownload.bind(this);
+    //this.itemClick = this.itemClick.bind(this);
     this.onDownloadProgress = this.onDownloadProgress.bind(this);
 
     this.state = {
@@ -41,11 +38,6 @@ export default class CarteHorsConnection extends React.Component {
         console.log("b", offlineRegionStatus);
         console.log("c", offlineRegion.status());
       });
-
-      //console.log(pack._metadata.name);
-      //const singlepack = Mapbox.offlineManager.getPack(pack._metadata.name);
-      //console.log(singlepack.status());
-      //Mapbox.offlineManager.deletePack(pack._metadata.name);
     });
 
     const featuresToBounds = getSourceData(geoJsonData, "element", "boundingbox");
@@ -69,14 +61,6 @@ export default class CarteHorsConnection extends React.Component {
     this.setState({ downloadItems });
   }
 
-  componentWillUnmount() {
-    console.log("Carte componentWillUnmount");
-
-    // avoid setState warnings if we back out before we finishing downloading
-    //Mapbox.offlineManager.deletePack(this.state.name);
-    //Mapbox.offlineManager.unsubscribe("test");
-  }
-
   onDownloadProgress(offlineRegion, offlineRegionStatus) {
     let downloadItems = { ...this.state.downloadItems };
 
@@ -90,21 +74,7 @@ export default class CarteHorsConnection extends React.Component {
     this.setState({ downloadItems });
   }
 
-  toggleDownload(name, bounds) {
-    const options = {
-      name: name,
-      styleURL: MAPBOX_MAP_STYLE,
-      bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
-      minZoom: 12,
-      maxZoom: 15
-    };
-
-    Mapbox.offlineManager.createPack(options, this.onDownloadProgress);
-  }
-
   render() {
-    //console.log(this.state.downloadItems);
-
     const downloadItems = this.state.downloadItems;
 
     return (
@@ -124,9 +94,7 @@ export default class CarteHorsConnection extends React.Component {
           <List>
             {Object.values(downloadItems).map((feature, index) => {
               console.log(feature);
-              return (
-                <DownloadItem key={index} feature={feature} onPress={feature => this.toggleDownload(feature.properties.groupe, feature.bounds)} />
-              );
+              return <DownloadItem key={index} feature={feature} onDownloadProgress={this.onDownloadProgress} />;
             })}
           </List>
         </Content>
@@ -135,44 +103,92 @@ export default class CarteHorsConnection extends React.Component {
   }
 }
 
-const DownloadItem = ({ feature, onPress }) => {
-  let statusText = "";
-  let icon = "";
-  let color = "blue";
+class DownloadItem extends React.Component {
+  static propTypes = {
+    feature: PropTypes.object.isRequired,
+    onDownloadProgress: PropTypes.func.isRequired
+  };
 
-  if (feature.offlineRegionStatus) {
-    if (feature.offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Active) {
-      statusText = "Téléchargement: " + Number(feature.offlineRegionStatus.percentage).toFixed(1) + "%";
-      icon = "controller-paus";
-      color = "yellow";
-    } else if (feature.offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Complete) {
-      statusText = "Terminé";
-      icon = "check";
-      color = "green";
-    } else {
-      statusText = "Pas encore téléchargé, mais existe";
-      icon = "download";
-    }
-  } else {
-    statusText = "Pas encore téléchargé";
-    icon = "download";
+  constructor(props) {
+    super(props);
+
+    //this.itemClick = this.itemClick.bind(this);
+    this.onDownloadProgress = this.onDownloadProgress.bind(this);
+
+    this.state = {
+      downloadItems: {}
+    };
   }
 
-  return (
-    <ListItem onPress={() => onPress(feature)}>
-      <Icon name={icon} size={35} style={{ color: "blue" }} />
-      <Body>
-        <Text>{feature.properties.name}</Text>
-        <Text note>{statusText}</Text>
-      </Body>
-    </ListItem>
-  );
-};
+  componentWillUnmount() {
+    console.log("componentWillUnmount: ", this.props.feature.properties.name);
 
-DownloadItem.propTypes = {
-  feature: PropTypes.object.isRequired,
-  onPress: PropTypes.func.isRequired
-};
+    // avoid setState warnings if we back out before we finishing downloading
+    //Mapbox.offlineManager.deletePack(this.state.name);
+    if (this.props.feature.offlineRegion) this.props.feature.offlineRegion.pause();
+
+    Mapbox.offlineManager.unsubscribe(this.props.feature.properties.groupe);
+  }
+
+  render() {
+    const feature = this.props.feature;
+    const offlineRegionStatus = this.props.feature.offlineRegionStatus;
+
+    let statusText = "";
+    let icon = "";
+    let color = "blue";
+    let itemClick = () => {};
+
+    if (offlineRegionStatus) {
+      if (offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Active) {
+        statusText = "Téléchargement: " + Number(offlineRegionStatus.percentage).toFixed(1) + "%";
+        itemClick = feature => {
+          feature.offlineRegion.pause();
+        };
+        icon = "controller-paus";
+        color = "yellow";
+      } else if (offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Complete) {
+        statusText = "Terminé";
+        icon = "check";
+        color = "green";
+      } else {
+        statusText = "Téléchargement démaré a " + Number(offlineRegionStatus.percentage).toFixed(1) + "%";
+        icon = "controller-play"; //
+
+        itemClick = feature => {
+          feature.offlineRegion.resume();
+        };
+      }
+    } else {
+      statusText = "Pas encore téléchargé";
+      icon = "download";
+
+      itemClick = feature => {
+        const name = feature.properties.groupe;
+        const bounds = feature.bounds;
+        const options = {
+          name: name,
+          styleURL: MAPBOX_MAP_STYLE,
+          bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
+          minZoom: 12,
+          maxZoom: 15
+        };
+
+        Mapbox.offlineManager.createPack(options, this.props.onDownloadProgress);
+      };
+    }
+
+    return (
+      <ListItem onPress={() => itemClick(feature)}>
+        <Icon name={icon} size={35} style={{ color: `${color}` }} />
+        <Body>
+          <Text>{feature.properties.name}</Text>
+          <Text note>{statusText}</Text>
+        </Body>
+      </ListItem>
+    );
+  }
+}
 
 //<Content padder>
 //<List>

@@ -7009,7 +7009,7 @@
       "properties": {
         "element": "markersecteur",
         "name": "Vallières de Saint-Réal",
-        "groupename": "secteur"
+        "groupename": "secteur-vallieres"
       },
       "geometry": {
         "coordinates": [
@@ -9918,7 +9918,8 @@
       "properties": {
         "element": "boundingbox",
         "groupe": "zone",
-        "name": "Gaspesie"
+        "name": "Gaspesie",
+        "zoom": "gaspesie"
       },
       "geometry": {
         "coordinates": [
