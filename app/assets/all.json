@@ -3637,7 +3637,7 @@
         "groupe": "zone-chicchoc",
         "element": "boundingbox",
         "zoom": "zone",
-        "name": "Chic Chocs"
+        "name": "Aperçu du parc des Chic Chocs"
       },
       "geometry": {
         "coordinates": [
@@ -9918,7 +9918,7 @@
       "properties": {
         "element": "boundingbox",
         "groupe": "zone",
-        "name": "Gaspesie",
+        "name": "Aperçu de la Gaspesie",
         "zoom": "gaspesie"
       },
       "geometry": {
@@ -12767,6 +12767,55 @@
         "type": "LineString"
       },
       "id": "aaad0c4e54665ecb7f6ef60c6e0684de"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "boundingbox",
+        "groupe": "secteur-stpierre",
+        "name": "Mont St-Pierre",
+        "zoom": "secteur"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              -65.831617,
+              49.22524
+            ],
+            [
+              -65.808711,
+              49.242459
+            ],
+            [
+              -65.775682,
+              49.237589
+            ],
+            [
+              -65.769023,
+              49.22611
+            ],
+            [
+              -65.799654,
+              49.188522
+            ],
+            [
+              -65.830285,
+              49.182429
+            ],
+            [
+              -65.840138,
+              49.187826
+            ],
+            [
+              -65.831617,
+              49.22524
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "ab26daeabbd89961a21b539df252749e"
     },
     {
       "type": "Feature",
@@ -15933,8 +15982,8 @@
       "properties": {
         "element": "markerzone",
         "name": "Mont-St-Pierre",
-        "groupe": "zone",
-        "groupename": ""
+        "groupe": "Mont St-Pierre",
+        "groupename": "secteur-stpierre"
       },
       "geometry": {
         "coordinates": [

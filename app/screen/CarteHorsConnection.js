@@ -1,7 +1,10 @@
 import React from "react";
 import { Container, Header, Title, Left, Right, Button, Body, Content, List, ListItem, Text } from "native-base";
+import { Alert } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import PropTypes from "prop-types";
+
+import * as Progress from "react-native-progress";
 
 import Mapbox from "@mapbox/react-native-mapbox-gl";
 import { MAPBOX_MAP_STYLE } from "../utils/conf";
@@ -20,63 +23,10 @@ export default class CarteHorsConnection extends React.Component {
   constructor(props) {
     super(props);
 
-    //this.itemClick = this.itemClick.bind(this);
-    this.onDownloadProgress = this.onDownloadProgress.bind(this);
-
-    this.state = {
-      downloadItems: {}
-    };
-  }
-
-  async componentDidMount() {
-    const offlinePacks = await Mapbox.offlineManager.getPacks();
-    await offlinePacks.map((pack, index) => {
-      console.log(index, pack);
-
-      Mapbox.offlineManager.subscribe(pack._metadata.name, this.onDownloadProgress, (offlineRegion, offlineRegionStatus) => {
-        console.log("a", offlineRegion);
-        console.log("b", offlineRegionStatus);
-        console.log("c", offlineRegion.status());
-      });
-    });
-
-    const featuresToBounds = getSourceData(geoJsonData, "element", "boundingbox");
-
-    let downloadItems = { ...this.state.downloadItems };
-
-    featuresToBounds.features.map(feature => {
-      const offlinePack = Mapbox.offlineManager.getPack(feature.properties.groupe);
-
-      const bounds = geojsonExtent(feature);
-
-      downloadItems[feature.properties.groupe] = {
-        properties: feature.properties,
-        bounds: bounds,
-        offlinePack: offlinePack,
-        offlineRegion: undefined,
-        offlineRegionStatus: undefined
-      };
-    });
-
-    this.setState({ downloadItems });
-  }
-
-  onDownloadProgress(offlineRegion, offlineRegionStatus) {
-    let downloadItems = { ...this.state.downloadItems };
-
-    downloadItems[offlineRegion.name] = {
-      ...downloadItems[offlineRegion.name],
-      offlineRegion: offlineRegion,
-      offlineRegionStatus: offlineRegionStatus,
-      status: offlineRegion.status()
-    };
-    //console.log(downloadItems[offlineRegion.name]);
-    this.setState({ downloadItems });
+    this.featuresToBounds = getSourceData(geoJsonData, "element", "boundingbox");
   }
 
   render() {
-    const downloadItems = this.state.downloadItems;
-
     return (
       <Container>
         <Header>
@@ -92,9 +42,8 @@ export default class CarteHorsConnection extends React.Component {
         </Header>
         <Content padder>
           <List>
-            {Object.values(downloadItems).map((feature, index) => {
-              console.log(feature);
-              return <DownloadItem key={index} feature={feature} onDownloadProgress={this.onDownloadProgress} />;
+            {this.featuresToBounds.features.map((feature, index) => {
+              return <DownloadItem key={index} feature={feature} />;
             })}
           </List>
         </Content>
@@ -105,95 +54,182 @@ export default class CarteHorsConnection extends React.Component {
 
 class DownloadItem extends React.Component {
   static propTypes = {
-    feature: PropTypes.object.isRequired,
-    onDownloadProgress: PropTypes.func.isRequired
+    feature: PropTypes.object.isRequired
   };
 
   constructor(props) {
     super(props);
 
-    //this.itemClick = this.itemClick.bind(this);
     this.onDownloadProgress = this.onDownloadProgress.bind(this);
 
+    let minZoom = 12;
+    let maxZoom = 15;
+
+    if (this.props.feature.properties.zoom === "gaspesie") {
+      minZoom = 7;
+      maxZoom = 8;
+    } else if (this.props.feature.properties.zoom === "zone") {
+      minZoom = 10;
+      maxZoom = 11;
+    } else if (this.props.feature.properties.zoom === "secteur") {
+      minZoom = 12;
+      maxZoom = 15;
+    }
+
     this.state = {
-      downloadItems: {}
+      offlineRegion: undefined,
+      offlineRegionStatus: undefined,
+      status: undefined,
+      offlinePack: undefined,
+      error: undefined
     };
+
+    this.bounds = geojsonExtent(this.props.feature);
+    this.options = {
+      name: this.props.feature.properties.groupe,
+      styleURL: MAPBOX_MAP_STYLE,
+      bounds: [[this.bounds[0], this.bounds[1]], [this.bounds[2], this.bounds[3]]],
+      minZoom: minZoom,
+      maxZoom: maxZoom
+    };
+  }
+
+  async componentDidMount() {
+    const groupe = this.props.feature.properties.groupe;
+    const pack = await Mapbox.offlineManager.getPack(groupe);
+
+    console.log("componentDidMount ", groupe);
+
+    this.setState({
+      groupe: groupe,
+      pack: pack
+    });
+
+    await Mapbox.offlineManager.subscribe(groupe, this.onDownloadProgress, this.onError);
+
+    console.log("componentDidMount: ", this.state);
   }
 
   componentWillUnmount() {
     console.log("componentWillUnmount: ", this.props.feature.properties.name);
-
-    // avoid setState warnings if we back out before we finishing downloading
-    //Mapbox.offlineManager.deletePack(this.state.name);
     if (this.props.feature.offlineRegion) this.props.feature.offlineRegion.pause();
-
     Mapbox.offlineManager.unsubscribe(this.props.feature.properties.groupe);
   }
 
+  onDownloadProgress(offlineRegion, offlineRegionStatus) {
+    this.setState({
+      offlineRegion: offlineRegion,
+      offlineRegionStatus: offlineRegionStatus,
+      status: offlineRegion.status()
+    });
+
+    console.log(this.state);
+  }
+
+  onError(offlineRegion, message) {
+    this.setState({ error: message });
+    console.log(this.state);
+  }
+
+  deletePack() {
+    Alert.alert(
+      "Attention",
+      "Etes-vous certain de vouloir effacer les cartes hors ligne pour " + this.props.feature.properties.name + "?",
+      [
+        {
+          text: "Annuler",
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            Mapbox.offlineManager.deletePack(this.props.feature.properties.groupe);
+            this.setState({
+              offlineRegion: undefined,
+              offlineRegionStatus: undefined,
+              status: undefined,
+              offlinePack: undefined,
+              error: undefined
+            });
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  }
+
   render() {
-    const feature = this.props.feature;
-    const offlineRegionStatus = this.props.feature.offlineRegionStatus;
-
-    let statusText = "";
-    let icon = "";
-    let color = "blue";
-    let itemClick = () => {};
-
-    if (offlineRegionStatus) {
-      if (offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Active) {
-        statusText = "Téléchargement: " + Number(offlineRegionStatus.percentage).toFixed(1) + "%";
-        itemClick = feature => {
-          feature.offlineRegion.pause();
-        };
-        icon = "controller-paus";
-        color = "yellow";
-      } else if (offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Complete) {
-        statusText = "Terminé";
-        icon = "check";
-        color = "green";
+    if (this.state.error) {
+      return (
+        <InactiveDownload
+          onPress={() => this.deletePack()}
+          icon={"check"}
+          color={"green"}
+          title={this.props.feature.properties.name}
+          note={"Erreur pendant le téléchargement: " + this.state.error}
+        />
+      );
+    } else if (this.state.offlineRegionStatus) {
+      if (this.state.offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Active) {
+        return (
+          <ActiveDownload
+            onPress={() => this.state.offlineRegion.pause()}
+            percentage={this.state.offlineRegionStatus.percentage / 100}
+            title={this.props.feature.properties.name}
+            note={"Téléchargement..."}
+          />
+        );
+      } else if (this.state.offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Complete) {
+        return (
+          <InactiveDownload
+            onPress={() => this.deletePack()}
+            icon={"check"}
+            color={"green"}
+            title={this.props.feature.properties.name}
+            note={"Terminé"}
+          />
+        );
       } else {
-        statusText = "Téléchargement démaré a " + Number(offlineRegionStatus.percentage).toFixed(1) + "%";
-        icon = "controller-play"; //
-
-        itemClick = feature => {
-          feature.offlineRegion.resume();
-        };
+        return (
+          <InactiveDownload
+            onPress={() => this.state.offlineRegion.resume()}
+            icon={"controller-play"}
+            color={"black"}
+            title={this.props.feature.properties.name}
+            note={"Téléchargement en attente (" + Number(this.state.offlineRegionStatus.percentage).toFixed(1) + "%)"}
+          />
+        );
       }
     } else {
-      statusText = "Pas encore téléchargé";
-      icon = "download";
-
-      itemClick = feature => {
-        const name = feature.properties.groupe;
-        const bounds = feature.bounds;
-        const options = {
-          name: name,
-          styleURL: MAPBOX_MAP_STYLE,
-          bounds: [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],
-          minZoom: 12,
-          maxZoom: 15
-        };
-
-        Mapbox.offlineManager.createPack(options, this.props.onDownloadProgress);
-      };
+      return (
+        <InactiveDownload
+          onPress={() => Mapbox.offlineManager.createPack(this.options, this.onDownloadProgress, this.onError)}
+          icon={"download"}
+          color={"blue"}
+          title={this.props.feature.properties.name}
+          note={""}
+        />
+      );
     }
-
-    return (
-      <ListItem onPress={() => itemClick(feature)}>
-        <Icon name={icon} size={35} style={{ color: `${color}` }} />
-        <Body>
-          <Text>{feature.properties.name}</Text>
-          <Text note>{statusText}</Text>
-        </Body>
-      </ListItem>
-    );
   }
 }
 
-//<Content padder>
-//<List>
-//  {this.state.map((feature, index) => (
-//    <DownloadItem key={index} name={feature.properties.groupe} />
-//  ))}
-//</List>
-//</Content>
+const ActiveDownload = ({ percentage, onPress, title, note }) => (
+  <ListItem onPress={() => onPress()}>
+    <Progress.Pie progress={percentage} size={35} showsText={true} />
+    <Body>
+      <Text>{title}</Text>
+      <Text note>{note}</Text>
+    </Body>
+  </ListItem>
+);
+
+const InactiveDownload = ({ icon, color, onPress, title, note }) => (
+  <ListItem onPress={() => onPress()}>
+    <Icon name={icon} size={35} style={{ color: `${color}` }} />
+    <Body>
+      <Text>{title}</Text>
+      <Text note>{note}</Text>
+    </Body>
+  </ListItem>
+);
