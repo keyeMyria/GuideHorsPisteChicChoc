@@ -1,33 +1,19 @@
 import React, { Component } from "react";
 import { Text, View, ToastAndroid } from "react-native";
-//import Bubble from "./Bubble";
-//import geoViewport from "@mapbox/geo-viewport";
 
 import Mapbox from "@mapbox/react-native-mapbox-gl";
 
-import { MAPBOX_ACCESS_TOKEN, MAPBOX_MAP_STYLE } from "../utils/conf";
-Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
+import { MAPBOX_MAP_STYLE } from "../utils/conf";
+//Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
 import geojsonExtent from "@mapbox/geojson-extent";
 
-//import { geojsonManager } from "../lib/geojsonManager";
 import { getGroupeNameFromFeatures, getBoundingBoxFromGroupe } from "../lib/geojsonManager";
 
 import { getScreenBoundingBox } from "../lib/screen";
 import { generateLayers } from "./layer/Layer";
 
 import geoJsonLayer from "../assets/geoJsonLayer.json";
-
-//const CENTER_COORD = [-73.970895, 40.723279];
-//const MAPBOX_VECTOR_TILE_SIZE = 512;
-//, {
-//  getSourceData,
-//  getBoundingBoxFromGroupe,
-//  applySplineToLineString,
-//  addArrowToLigne,
-//  getGroupeNameFromFeatures
-//}
-//import geoJsonData from "../assets/all.json";
 
 export default class Carte extends Component {
   constructor(props) {
@@ -47,7 +33,7 @@ export default class Carte extends Component {
   }
 
   async componentDidMount() {
-    console.log("Carte componentDidMount");
+    console.log("Carte componentDidMount ", global.geoJsonData);
   }
 
   onUserLocationUpdate(location) {
@@ -148,41 +134,3 @@ export default class Carte extends Component {
     );
   }
 }
-
-//const styles = StyleSheet.create({
-//  test: {
-//    flex: 1,
-//    flexDirection: "column",
-//    position: "absolute"
-//  },
-//  container: {
-//    flex: 1
-//  },
-//  text: {
-//    flex: 1,
-//    position: "absolute",
-//    top: 1,
-//    right: 1,
-//    fontSize: 10
-//  },
-//  percentageText: {
-//    padding: 8,
-//    textAlign: "center"
-//  },
-//  buttonCnt: {
-//    flexDirection: "row",
-//    alignItems: "center",
-//    justifyContent: "space-between"
-//  },
-//  button: {
-//    flex: 0.4,
-//    alignItems: "center",
-//    justifyContent: "center",
-//    borderRadius: 3,
-//    backgroundColor: "blue",
-//    padding: 8
-//  },
-//  buttonTxt: {
-//    color: "white"
-//  }
-//});

@@ -10,7 +10,7 @@ import WebCamera from "./screen/WebCamera";
 import RapportObservation from "./screen/RapportObservation";
 import About from "./screen/About";
 import AddRaport from "./screen/AddRaport";
-import CarteHorsConnection from "./screen/CarteHorsConnection";
+import CarteHorsConnection from "./screen/CarteHorsConnection/CarteHorsConnection";
 
 import { createDrawerNavigator, createStackNavigator } from "react-navigation";
 

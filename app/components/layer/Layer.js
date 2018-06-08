@@ -10,6 +10,7 @@ export function generateLayers(source) {
 
   geoJsonLayer.map(layer => {
     var featuresToRender = getSourceData(source, "element", layer.name);
+    console.log("generateLayers", featuresToRender);
 
     if (layer.type == "marker") {
       layers.push(

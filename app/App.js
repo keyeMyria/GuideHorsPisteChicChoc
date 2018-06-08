@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { YellowBox } from "react-native";
+import { YellowBox, ActivityIndicator, View } from "react-native";
 import Permissions from "react-native-permissions";
 
 import { Provider } from "react-redux";
@@ -8,22 +8,17 @@ import { configureAppStore } from "./store";
 
 import SplashScreen from "react-native-splash-screen";
 
-//import rootReducer from "./reducers";
-//import { addRapport } from "./actions";
-//import { applyMiddleware, createStore } from "redux";
-//import logger from "redux-logger";
-//import { PURGE } from "redux-persist";
-
-//import { applySplineToLineString, addArrowToLigne } from "../lib/geojson";
-//import geoJsonData from "../assets/all.json";
+import Mapbox from "@mapbox/react-native-mapbox-gl";
+import { MAPBOX_ACCESS_TOKEN } from "./utils/conf";
+Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 
 import { prepareGeojsonData } from "./lib/geojsonManager";
 
 import Routes from "./Routes";
 
-YellowBox.ignoreWarnings(["Warning: isMounted(...) is deprecated", "Module RCTImageLoader"]);
+import { subscribeOfflineMapsToStore } from "./lib/offlineManager";
 
-//const store = createStore(rootReducer, applyMiddleware(logger));
+YellowBox.ignoreWarnings(["Warning: isMounted(...) is deprecated", "Module RCTImageLoader"]);
 
 const { persistor, store } = configureAppStore();
 
@@ -32,7 +27,8 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      locationPermission: "undetermined"
+      locationPermission: "undetermined",
+      geoJsonDataReady: false
     };
 
     //console.log(store.getState());
@@ -62,15 +58,19 @@ export default class App extends Component {
     //unsubscribe();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log("componentDidMount");
 
-    Permissions.request("location").then(response => {
+    await Permissions.request("location").then(response => {
       // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
       this.setState({ locationPermission: response });
     });
 
+    subscribeOfflineMapsToStore(store);
+
     prepareGeojsonData();
+
+    this.setState({ geoJsonDataReady: true });
 
     SplashScreen.hide();
   }
@@ -79,17 +79,22 @@ export default class App extends Component {
     console.log(errorString, errorInfo);
   }
 
+  checkIfLoadingDone() {
+    if (this.state.locationPermission == "authorized" && this.state.geoJsonDataReady == true) return true;
+    else return false;
+  }
+
   render() {
     return (
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <Routes />
-        </PersistGate>
+        <PersistGate persistor={persistor}>{this.checkIfLoadingDone() ? <Routes /> : <Spinner />}</PersistGate>
       </Provider>
     );
-    //if (this.state.locationPermission != 'authorized') {
-    //  return <LoadingScreen />;
-    //}
-    //return <Routes />;
   }
 }
+
+const Spinner = () => (
+  <View style={{ flex: 1 }}>
+    <ActivityIndicator size="large" color="#0000ff" />
+  </View>
+);
