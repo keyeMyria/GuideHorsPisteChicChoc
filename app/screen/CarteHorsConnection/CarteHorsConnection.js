@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Header, Title, Left, Right, Button, Body, Content, List } from "native-base";
+import { Container, Header, Title, Left, Button, Body, Content, List } from "native-base";
 import Icon from "react-native-vector-icons/Entypo";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -11,6 +11,20 @@ class CarteHorsConnection extends React.Component {
     navigation: PropTypes.object.isRequired,
     offline_status: PropTypes.object.isRequired
   };
+
+  constructor(props) {
+    super(props);
+
+    this.items = Object.values(this.props.offline_status).sort(function(a, b) {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    });
+
+    this.items.map(item => {
+      console.log(item.name);
+    });
+  }
 
   //componentDidMount() {
   //  console.log("offline_status", this.props.offline_status);
@@ -31,7 +45,7 @@ class CarteHorsConnection extends React.Component {
         </Header>
         <Content padder>
           <List>
-            {Object.values(this.props.offline_status).map((item, index) => {
+            {this.items.map((item, index) => {
               return <DownloadItem key={index} item={item} />;
             })}
           </List>

@@ -59,20 +59,23 @@ export default class App extends Component {
   }
 
   async componentDidMount() {
-    console.log("componentDidMount");
+    console.log("App componentDidMount()");
 
     await Permissions.request("location").then(response => {
       // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
+      console.log("locationPermission:" + response);
       this.setState({ locationPermission: response });
     });
 
-    subscribeOfflineMapsToStore(store);
-
     prepareGeojsonData();
+
+    subscribeOfflineMapsToStore(store);
 
     this.setState({ geoJsonDataReady: true });
 
     SplashScreen.hide();
+
+    console.log("App componentDidMount() done");
   }
 
   componentDidCatch(errorString, errorInfo) {

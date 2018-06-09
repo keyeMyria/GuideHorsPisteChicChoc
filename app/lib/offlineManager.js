@@ -45,12 +45,14 @@ export function getInitialState() {
 }
 
 export async function subscribeOfflineMapsToStore(store) {
+  console.log("subscribeOfflineMapsToStore()");
+
   let storeState = store.getState();
 
   Object.keys(storeState.offline_status).map(async function(item) {
     console.log("subscribe", item);
 
-    const pack = await Mapbox.offlineManager.getPack(item);
+    await Mapbox.offlineManager.getPack(item);
     //console.log(pack);
 
     Mapbox.offlineManager.subscribe(

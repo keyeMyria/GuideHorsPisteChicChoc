@@ -12,7 +12,8 @@
     "flow start": "flow start",
     "flow stop": "flow stop",
     "flow status": "flow status",
-    "flow coverage": "flow coverage"
+    "flow coverage": "flow coverage",
+    "compile_android": "gradlew assembleRelease --console plain"
   },
   "dependencies": {
     "@mapbox/geo-viewport": "^0.2.2",
@@ -63,9 +64,7 @@
   },
   "jest": {
     "preset": "react-native",
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
     "setupTestFrameworkScriptFile": "<rootDir>/enzymeSetup.js"
   }
 }

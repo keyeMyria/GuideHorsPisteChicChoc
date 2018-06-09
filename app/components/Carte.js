@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, ToastAndroid } from "react-native";
+import { Animated, Text, View, ToastAndroid, StyleSheet } from "react-native";
 
 import Mapbox from "@mapbox/react-native-mapbox-gl";
 
@@ -15,12 +15,15 @@ import { generateLayers } from "./layer/Layer";
 
 import geoJsonLayer from "../assets/geoJsonLayer.json";
 
+import { Fab } from "native-base";
+import Icon from "react-native-vector-icons/MaterialIcons";
+
 export default class Carte extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      lastLocation: {},
+      lastLocation: undefined,
       zoom: 0
     };
 
@@ -28,36 +31,37 @@ export default class Carte extends Component {
     this.onRegionDidChange = this.onRegionDidChange.bind(this);
     this.onDidFinishLoadingMap = this.onDidFinishLoadingMap.bind(this);
     this.onPress = this.onPress.bind(this);
-    //this.onRegionIsChanging = this.onRegionIsChanging.bind(this);
-    this.regionWillChange = this.regionWillChange.bind(this);
+    this.onRegionIsChanging = this.onRegionIsChanging.bind(this);
+    //this.regionWillChange = this.regionWillChange.bind(this);
   }
 
   async componentDidMount() {
-    console.log("Carte componentDidMount ", global.geoJsonData);
+    console.log("Carte componentDidMount ");
   }
 
   onUserLocationUpdate(location) {
     this.setState({ lastLocation: location });
+    console.log("location: ", location);
   }
 
   async onRegionDidChange() {
     console.log("onRegionDidChange");
     const zoom = await this._map.getZoom();
-    this.setState({ zoom });
-    //this.setState({ loading: false })
-  }
-
-  async regionWillChange() {
-    console.log("regionWillChange");
-    const zoom = await this._map.getZoom();
+    await console.log("zoom: ", zoom);
     this.setState({ zoom });
   }
 
-  //async onRegionIsChanging() {
-  //  console.log('onRegionIsChanging');
+  //async regionWillChange() {
+  //  console.log("regionWillChange");
   //  const zoom = await this._map.getZoom();
   //  this.setState({ zoom });
   //}
+
+  async onRegionIsChanging() {
+    const zoom = await this._map.getZoom();
+    console.log("onRegionIsChanging ", zoom);
+    this.setState({ zoom });
+  }
 
   async onDidFinishLoadingMap() {
     console.log("onDidFinishLoadingMap");
@@ -97,6 +101,12 @@ export default class Carte extends Component {
   render() {
     const zoom = Number(this.state.zoom).toFixed(1);
 
+    //console.log("Carte render");
+
+    this._scaleIn = new Animated.Value(0.6);
+    let animationStyle = {};
+    animationStyle.transform = [{ scale: this._scaleIn }];
+
     return (
       <View style={{ flex: 1 }}>
         <Mapbox.MapView
@@ -104,9 +114,8 @@ export default class Carte extends Component {
           logoEnabled={false}
           ref={c => (this._map = c)}
           onRegionDidChange={this.onRegionDidChange}
-          //onRegionIsChanging={this.onRegionIsChanging}
-
-          onRegionWillChange={this.onRegionWillChange}
+          onRegionIsChanging={this.onRegionIsChanging}
+          //onRegionWillChange={this.onRegionWillChange}
           onPress={this.onPress}
           zoomLevel={7}
           centerCoordinate={[-66.0978699, 48.9215969]}
@@ -116,7 +125,9 @@ export default class Carte extends Component {
           onDidFinishLoadingMap={this.onDidFinishLoadingMap}
           pitchEnabled={false}
           rotateEnabled={false}
-          compassEnabled={true}>
+          compassEnabled={true}
+          //animated={true}
+          userTrackingMode={Mapbox.UserTrackingModes.FolloWithHeading}>
           {generateLayers(global.geoJsonData)}
         </Mapbox.MapView>
 
@@ -130,7 +141,65 @@ export default class Carte extends Component {
           }}>
           {zoom}
         </Text>
+
+        <Fab
+          direction="up"
+          containerStyle={{}}
+          style={{ backgroundColor: "#5067FF" }}
+          position="bottomRight"
+          onPress={() => {
+            console.log(this.state.lastLocation);
+            if (this.state.lastLocation) this._map.flyTo([this.state.lastLocation.coords.longitude, this.state.lastLocation.coords.latitude], 2000);
+          }}>
+          <Icon name="my-location" />
+        </Fab>
       </View>
     );
   }
 }
+//const ANNOTATION_SIZE = 20;
+//const styles = StyleSheet.create({
+//  annotationContainer: {
+//    width: ANNOTATION_SIZE + 10,
+//    height: ANNOTATION_SIZE + 10,
+//    alignItems: "center",
+//    justifyContent: "center",
+//    backgroundColor: "rgba(30, 144, 255, 0.4)",
+//    borderRadius: ANNOTATION_SIZE / 2,
+//    borderWidth: StyleSheet.hairlineWidth,
+//    borderColor: "rgba(0, 0, 0, 0.8)"
+//  },
+//  annotationFill: {
+//    width: ANNOTATION_SIZE - 3,
+//    height: ANNOTATION_SIZE - 3,
+//    borderRadius: (ANNOTATION_SIZE - 3) / 2,
+//    backgroundColor: "blue",
+//    transform: [{ scale: 0.6 }]
+//  }
+//});
+//
+//<Mapbox.PointAnnotation
+//id="3"
+//title="Test"
+//selected={false}
+////onSelected={feature => this.onAnnotationSelected(i, feature)}
+////onDeselected={() => this.onAnnotationDeselected(i)}
+//coordinate={[-66.17416028, 48.97479888]}>
+//<View style={styles.annotationContainer}>
+//  <View style={styles.annotationFill} />
+//</View>
+//
+//<Mapbox.Callout title={"allo"} />
+//</Mapbox.PointAnnotation>
+
+//<MapView.Circle
+//key={(this.state.longitude + this.state.latitude).toString()}
+//center={{
+//  latitude: this.state.latitude,
+//  longitude: this.state.longitude
+//}}
+//radius={100}
+//strokeWidth={1}
+//strokeColor={"#1a66ff"}
+//fillColor={"#1a66ff"}
+///>

@@ -5,6 +5,8 @@ import bezier from "turf-bezier";
 import geoJsonSourceData from "../assets/all.json";
 
 export function prepareGeojsonData() {
+  console.log("prepareGeojsonData()");
+
   geoJsonSourceData.features.map(data => {
     if (data.properties.element == "ligne") {
       var y = Object.assign({}, data);
@@ -21,6 +23,8 @@ export function prepareGeojsonData() {
   });
 
   global.geoJsonData = Object.assign({}, geoJsonSourceData);
+
+  console.log("prepareGeojsonData() done (" + global.geoJsonData.features.length + " features)");
 }
 
 export function addArrowToLigne(data) {
