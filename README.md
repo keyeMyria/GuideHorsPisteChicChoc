@@ -11,8 +11,8 @@ Utilisez le guide officiel électronique pour naviguer dans les chic chocs avec 
 ## Librairies
 
 - Redux
-- [Turf.js](http://turfjs.org/) - Square
-- [Mapbox](https://github.com/mapbox/react-native-mapbox-gl/) - Mapbox
+- [Turf.js](http://turfjs.org/)
+- [Mapbox](https://github.com/mapbox/react-native-mapbox-gl/)
 
 ## License
 
