@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Animated, Text, View, ToastAndroid, StyleSheet } from "react-native";
 
+import { connect } from "react-redux";
+
 import Mapbox from "@mapbox/react-native-mapbox-gl";
 
 import { MAPBOX_MAP_STYLE } from "../utils/conf";
@@ -18,7 +20,9 @@ import geoJsonLayer from "../assets/geoJsonLayer.json";
 import { Fab } from "native-base";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-export default class Carte extends Component {
+import { subscribeOfflineMapsToStore } from "../lib/offlineManager";
+
+class Carte extends Component {
   constructor(props) {
     super(props);
 
@@ -36,7 +40,7 @@ export default class Carte extends Component {
   }
 
   async componentDidMount() {
-    console.log("Carte componentDidMount ");
+    console.log("Carte componentDidMount ", this.props);
   }
 
   onUserLocationUpdate(location) {
@@ -66,6 +70,7 @@ export default class Carte extends Component {
   async onDidFinishLoadingMap() {
     console.log("onDidFinishLoadingMap");
     await this.zoomToFeatures(global.geoJsonData);
+    //await subscribeOfflineMapsToStore(this.props.offline_status, this.props.dispatch);
     //SplashScreen.hide();
     console.log("onDidFinishLoadingMap done");
   }
@@ -157,6 +162,13 @@ export default class Carte extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  offline_status: state.offline_status
+});
+
+export default connect(mapStateToProps)(Carte);
+
 //const ANNOTATION_SIZE = 20;
 //const styles = StyleSheet.create({
 //  annotationContainer: {

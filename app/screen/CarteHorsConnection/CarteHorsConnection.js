@@ -15,22 +15,36 @@ class CarteHorsConnection extends React.Component {
   constructor(props) {
     super(props);
 
-    this.items = Object.values(this.props.offline_status).sort(function(a, b) {
+    //this.items = Object.values(this.props.offline_status).sort(function(a, b) {
+    //  if (a.name < b.name) return -1;
+    //  if (a.name > b.name) return 1;
+    //  return 0;
+    //});
+//
+    //this.items.map(item => {
+    //  console.log(item.name);
+    //});
+
+    console.log("CarteHorsConnection componentDidMount ", this.props);
+  }
+
+  componentDidMount() {
+    console.log("offline_status", this.props.offline_status);
+  }
+
+  render() {
+    //console.log("offline_status", this.props.offline_status);
+
+    const items = Object.values(this.props.offline_status).sort(function(a, b) {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
       return 0;
     });
 
-    this.items.map(item => {
-      console.log(item.name);
-    });
-  }
+    //this.items.map(item => {
+    //  console.log(item.name);
+    //});
 
-  //componentDidMount() {
-  //  console.log("offline_status", this.props.offline_status);
-  //}
-
-  render() {
     return (
       <Container>
         <Header>
@@ -45,7 +59,7 @@ class CarteHorsConnection extends React.Component {
         </Header>
         <Content padder>
           <List>
-            {this.items.map((item, index) => {
+            {items.map((item, index) => {
               return <DownloadItem key={index} item={item} />;
             })}
           </List>

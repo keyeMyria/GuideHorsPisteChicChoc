@@ -16,7 +16,7 @@ import { prepareGeojsonData } from "./lib/geojsonManager";
 
 import Routes from "./Routes";
 
-import { subscribeOfflineMapsToStore } from "./lib/offlineManager";
+
 
 YellowBox.ignoreWarnings(["Warning: isMounted(...) is deprecated", "Module RCTImageLoader"]);
 
@@ -69,7 +69,9 @@ export default class App extends Component {
 
     prepareGeojsonData();
 
-    subscribeOfflineMapsToStore(store);
+    //subscribeOfflineMapsToStore(store);
+
+    await subscribeOfflineMapsToStore(store.getState().offline_status, store.dispatch);
 
     this.setState({ geoJsonDataReady: true });
 
