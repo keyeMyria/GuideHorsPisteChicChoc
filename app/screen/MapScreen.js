@@ -1,7 +1,8 @@
 //@dsas flow
 
 import React, { Component } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, StatusBar } from "react-native";
+import {SafeAreaView} from "react-navigation"
 import PropTypes from "prop-types";
 
 import Carte from "../components/Carte";
@@ -23,20 +24,23 @@ export default class MapScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Carte />
-        <View
-          style={{
-            padding: 10,
-            position: "absolute"
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => this.props.navigation.openDrawer()}
-            style={{ flexDirection: "row", alignItems: "center" }}
+        <StatusBar translucent backgroundColor="rgba(255, 255, 255, 0)" />
+        
+          <Carte />
+          <View
+            style={{
+              paddingTop: 20,
+              paddingLeft: 10,
+              position: "absolute"
+            }}
           >
-            <Icon name="menu" size={36} />
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.openDrawer()}
+              style={{ flexDirection: "row", alignItems: "center" }}
+            >
+              <Icon name="menu" size={36} />
+            </TouchableOpacity>
+          </View>
       </View>
     );
   }

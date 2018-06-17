@@ -10,14 +10,20 @@ export function generateLayers(source) {
 
   geoJsonLayer.map(layer => {
     var featuresToRender = getSourceData(source, "element", layer.name);
-
     //if (layer.type == "marker") {
     //  layers.push(
     //    <Mapbox.ShapeSource key={layer.name} id={layer.name} shape={featuresToRender} images={{ assets: ["marker"] }}>
     //      <Mapbox.SymbolLayer id={layer.name} style={[styles[layer.name]]} maxZoomLevel={layer.maxZoom} minZoomLevel={layer.minZoom} />
     //    </Mapbox.ShapeSource>
     //  );
-    //} else 
+    //}
+    if (layer.type == "marker") {
+      layers.push(
+        <Mapbox.ShapeSource key={layer.name} id={layer.name} shape={featuresToRender}>
+          <Mapbox.SymbolLayer id={layer.name} style={[styles[layer.name]]} maxZoomLevel={layer.maxZoom} minZoomLevel={layer.minZoom} />
+        </Mapbox.ShapeSource>
+      );
+    }
     if (layer.type == "ligne") {
       layers.push(
         <Mapbox.ShapeSource key={layer.name} id={layer.name} shape={featuresToRender}>

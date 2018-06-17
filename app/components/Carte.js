@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Animated, Text, View, ToastAndroid, StyleSheet } from "react-native";
+import { Text, View, ToastAndroid } from "react-native";
 
-import { connect } from "react-redux";
+//import { connect } from "react-redux";
 
 import Mapbox from "@mapbox/react-native-mapbox-gl";
 
@@ -20,9 +20,9 @@ import geoJsonLayer from "../assets/geoJsonLayer.json";
 import { Fab } from "native-base";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-import { subscribeOfflineMapsToStore } from "../lib/offlineManager";
+//import { subscribeOfflineMapsToStore } from "../lib/offlineManager";
 
-class Carte extends Component {
+export default class Carte extends Component {
   constructor(props) {
     super(props);
 
@@ -108,9 +108,9 @@ class Carte extends Component {
 
     //console.log("Carte render");
 
-    this._scaleIn = new Animated.Value(0.6);
-    let animationStyle = {};
-    animationStyle.transform = [{ scale: this._scaleIn }];
+    //this._scaleIn = new Animated.Value(0.6);
+    //let animationStyle = {};
+    //animationStyle.transform = [{ scale: this._scaleIn }];
 
     return (
       <View style={{ flex: 1 }}>
@@ -140,7 +140,7 @@ class Carte extends Component {
           style={{
             flex: 1,
             position: "absolute",
-            top: 1,
+            top: 20,
             right: 1,
             fontSize: 10
           }}>
@@ -163,11 +163,11 @@ class Carte extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  offline_status: state.offline_status
-});
+//const mapStateToProps = state => ({
+//  offline_status: state.offline_status
+//});
 
-export default connect(mapStateToProps)(Carte);
+//export default connect(mapStateToProps)(Carte);
 
 //const ANNOTATION_SIZE = 20;
 //const styles = StyleSheet.create({

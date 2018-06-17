@@ -7,7 +7,8 @@ export default class SideBar extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground
-          source={{ uri: "ski" }}
+          //source={{ uri: "ski" }}
+          source={require("../assets/ski.jpg")}
           style={{
             flex: 0.3,
             alignContent: "center"
@@ -26,8 +27,8 @@ export default class SideBar extends React.Component {
                 alignSelf: "center",
                 alignContent: "center"
               }}
-              //source={require("../assets/aq.png")}
-              source={{ uri: "aq" }}
+              source={require("../assets/aq.png")}
+              //source={{ uri: "aq.png" }}
             />
           </View>
         </ImageBackground>

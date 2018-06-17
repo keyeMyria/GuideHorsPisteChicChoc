@@ -108,7 +108,8 @@ export const styles = Mapbox.StyleSheet.create({
   },
 
   markerrefuge: {
-    iconImage: "house",
+    //iconImage: "house",
+    iconImage: require("../../assets/house.png"),
     iconAllowOverlap: true,
     iconSize: 0.3,
     iconOpacity: Mapbox.StyleSheet.camera(
@@ -139,7 +140,8 @@ export const styles = Mapbox.StyleSheet.create({
   },
 
   markersecteur: {
-    iconImage: "marker",
+    //iconImage: "marker",
+    iconImage: require("../../assets/marker.png"),
     iconAllowOverlap: true,
     iconSize: 0.5,
     textSize: 12,
@@ -148,7 +150,7 @@ export const styles = Mapbox.StyleSheet.create({
     textOpacity: 0.8,
     textAnchor: "left",
     iconIgnorePlacement: true,
-    textIgnorePlacement: false,
+    textIgnorePlacement: true,
     textOffset: [1.0, 0],
     textMaxWidth: 6,
     textJustify: "left",
@@ -156,7 +158,8 @@ export const styles = Mapbox.StyleSheet.create({
   },
 
   markermontagne: {
-    iconImage: "marker",
+    //iconImage: "marker",
+    iconImage: require("../../assets/marker.png"),
     iconAllowOverlap: true,
     iconSize: 0.5,
     textSize: 12,
@@ -165,7 +168,7 @@ export const styles = Mapbox.StyleSheet.create({
     textOpacity: 0.8,
     textAnchor: "left",
     iconIgnorePlacement: true,
-    textIgnorePlacement: false,
+    textIgnorePlacement: true,
     textOffset: [1.0, 0],
     textMaxWidth: 6,
     textJustify: "left",
@@ -173,7 +176,8 @@ export const styles = Mapbox.StyleSheet.create({
   },
 
   markerzone: {
-    iconImage: "marker",
+    //iconImage: "marker",
+    iconImage: require("../../assets/marker.png"),
     iconAllowOverlap: true,
     iconSize: 0.5,
     textSize: 12,
@@ -182,7 +186,7 @@ export const styles = Mapbox.StyleSheet.create({
     textOpacity: 0.8,
     textAnchor: "left",
     iconIgnorePlacement: true,
-    textIgnorePlacement: false,
+    textIgnorePlacement: true,
     textOffset: [1.0, 0],
     textMaxWidth: 6,
     textJustify: "left",
