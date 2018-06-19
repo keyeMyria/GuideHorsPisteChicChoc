@@ -78,6 +78,8 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 
+//apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -148,7 +150,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-image-picker')
     compile project(':react-native-vector-icons')
     compile project(':react-native-splash-screen')
     compile project(':@mapbox/react-native-mapbox-gl')

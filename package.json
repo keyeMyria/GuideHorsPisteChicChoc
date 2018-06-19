@@ -30,7 +30,6 @@
     "react-dom": "^16.4.0",
     "react-native": "^0.55.4",
     "react-native-datepicker": "^1.7.2",
-    "react-native-image-picker": "^0.26.10",
     "react-native-permissions": "^1.1.1",
     "react-native-progress": "^3.5.0",
     "react-native-radio-button-classic": "0.0.5",

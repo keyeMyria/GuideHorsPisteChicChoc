@@ -61,11 +61,7 @@ export default class App extends Component {
   async componentDidMount() {
     console.log("App componentDidMount()");
 
-    await Permissions.request("location").then(response => {
-      // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
-      console.log("locationPermission:" + response);
-      this.setState({ locationPermission: response });
-    });
+
 
     prepareGeojsonData();
 
@@ -74,6 +70,12 @@ export default class App extends Component {
     this.setState({ geoJsonDataReady: true });
 
     SplashScreen.hide();
+
+    await Permissions.request("location").then(response => {
+      // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
+      console.log("locationPermission:" + response);
+      this.setState({ locationPermission: response });
+    });
 
     console.log("App componentDidMount() done");
   }
