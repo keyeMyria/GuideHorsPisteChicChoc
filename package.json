@@ -13,7 +13,8 @@
     "flow stop": "flow stop",
     "flow status": "flow status",
     "flow coverage": "flow coverage",
-    "compile_android": "gradlew assembleRelease --console plain"
+    "compile_android": "gradlew assembleRelease --console plain",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'"
   },
   "dependencies": {
     "@mapbox/geo-viewport": "^0.2.2",

@@ -45,10 +45,10 @@ export function getInitialState() {
 }
 
 export async function subscribeOfflineMapsToStore(offline_status, dispatch) {
-  console.log("subscribeOfflineMapsToStore()1");
+  console.log("subscribeOfflineMapsToStore()");
 
-  const progressListener = (offlinePack, status) => console.log(offlinePack, status)
-  const errorListener = (offlinePack, err) => console.log(offlinePack, err)
+  //const progressListener = (offlinePack, status) => console.log(offlinePack, status)
+  //const errorListener = (offlinePack, err) => console.log(offlinePack, err)
 
 
   //Mapbox.offlineManager.getPacks()
@@ -83,11 +83,11 @@ export async function subscribeOfflineMapsToStore(offline_status, dispatch) {
 
   Mapbox.offlineManager.getPacks()
   .then(packs => {
-    console.log("packs", packs);
+    //console.log("packs", packs);
     for (let packName of packs) {
-      console.log("(",packName._metadata.name,")");
+      //console.log("(",packName._metadata.name,")");
       packName.status().then(test => {
-        console.log("test",test);
+        //console.log("test",test);
 
 
 
@@ -96,7 +96,7 @@ export async function subscribeOfflineMapsToStore(offline_status, dispatch) {
           (offlineRegion, offlineRegionStatus) => {
             const groupe = offlineRegion._metadata.name;
   
-            console.log("updateOfflineRegion", groupe, offlineRegion, offlineRegionStatus);
+            //console.log("updateOfflineRegion", groupe, offlineRegion, offlineRegionStatus);
   
             dispatch(
               updateOfflineRegion(groupe, {
@@ -113,7 +113,7 @@ export async function subscribeOfflineMapsToStore(offline_status, dispatch) {
                 error: message
               })
             );
-            console.log("updateOfflineError", offlineRegion, message);
+            //console.log("updateOfflineError", offlineRegion, message);
           }
         ).then(() => {
           console.log("DONE");
@@ -146,44 +146,39 @@ return;
 
   //let storeState = store.getState();
 
-  Object.keys(offline_status).map(async function(item) {
-
-    //const status = await Mapbox.offlineManager.getPackStatus(item);
-    //console.log("status", status);
-
-
-    const pack = Mapbox.offlineManager.getPack(item);
-    console.log(pack);
-
-    if (pack != undefined) {
-      console.log("subscribe ", item);
-      Mapbox.offlineManager.subscribe(
-        item,
-        (offlineRegion, offlineRegionStatus) => {
-          const groupe = offlineRegion._metadata.name;
-
-          console.log("updateOfflineRegion", groupe, offlineRegion, offlineRegionStatus);
-
-          dispatch(
-            updateOfflineRegion(groupe, {
-              offlineRegion: offlineRegion,
-              offlineRegionStatus: offlineRegionStatus
-            })
-          );
-        },
-        (offlineRegion, message) => {
-          const groupe = offlineRegion._metadata.name;
-          dispatch(
-            updateOfflineError(groupe, {
-              offlineRegion: offlineRegion,
-              error: message
-            })
-          );
-          console.log("updateOfflineError", offlineRegion, message);
-        }
-      );
-    }
-  });
+  //Object.keys(offline_status).map(async function(item) {
+  //  const pack = Mapbox.offlineManager.getPack(item);
+  //  console.log(pack);
+//
+  //  if (pack != undefined) {
+  //    console.log("subscribe ", item);
+  //    Mapbox.offlineManager.subscribe(
+  //      item,
+  //      (offlineRegion, offlineRegionStatus) => {
+  //        const groupe = offlineRegion._metadata.name;
+//
+  //        console.log("updateOfflineRegion", groupe, offlineRegion, offlineRegionStatus);
+//
+  //        dispatch(
+  //          updateOfflineRegion(groupe, {
+  //            offlineRegion: offlineRegion,
+  //            offlineRegionStatus: offlineRegionStatus
+  //          })
+  //        );
+  //      },
+  //      (offlineRegion, message) => {
+  //        const groupe = offlineRegion._metadata.name;
+  //        dispatch(
+  //          updateOfflineError(groupe, {
+  //            offlineRegion: offlineRegion,
+  //            error: message
+  //          })
+  //        );
+  //        console.log("updateOfflineError", offlineRegion, message);
+  //      }
+  //    );
+  //  }
+  //});
 
 
 

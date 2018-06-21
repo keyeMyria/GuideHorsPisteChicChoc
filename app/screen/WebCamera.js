@@ -12,8 +12,8 @@ import {
   Card,
   CardItem
 } from "native-base";
-import Icon from "react-native-vector-icons/Entypo";
 import PropTypes from "prop-types";
+import HeaderBar from "../components/HeaderBar";
 
 export default class WebCamera extends React.Component {
   static propTypes = {
@@ -23,20 +23,9 @@ export default class WebCamera extends React.Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.openDrawer()}
-            >
-              <Icon name="menu" size={30} />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Web caméra</Title>
-          </Body>
-          <Right />
-        </Header>
+        <HeaderBar openDrawer={() => this.props.navigation.openDrawer()}>
+          Web caméra
+        </HeaderBar>
         <Content padder>
           <Card>
             <CardItem>

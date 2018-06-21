@@ -3,25 +3,19 @@ import {
   Container,
   Header,
   Title,
-  //Subtitle,
   Left,
-  // Right,
   Button,
   Body,
   Content,
-  //Text,
   Fab
 } from "native-base";
 import PropTypes from "prop-types";
 import Icon from "react-native-vector-icons/Entypo";
 import RapportList from "../components/RapportList";
+import HeaderBar from "../components/HeaderBar";
 
 export default class RapportObservation extends React.Component {
-  //static navigationOptions = {
-  //    header: null,
-  //    drawerLabel: 'Rapport d\'observation',
-  //    drawerIcon: () => ( <Icon name="megaphone" size={20}/> )
-  //}
+
   static propTypes = {
     navigation: PropTypes.object.isRequired
   };
@@ -29,19 +23,9 @@ export default class RapportObservation extends React.Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.openDrawer()}
-            >
-              <Icon name="menu" size={30} />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Rapport d&#39;observation</Title>
-          </Body>
-        </Header>
+        <HeaderBar openDrawer={() => this.props.navigation.openDrawer()}>
+          Rapport d&#39;observation
+        </HeaderBar>
         <Content padder>
           <RapportList />
         </Content>

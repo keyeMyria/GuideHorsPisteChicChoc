@@ -1,10 +1,11 @@
 import React from "react";
-import { Container, Header, Title, Left, Button, Body, Content, List } from "native-base";
-import Icon from "react-native-vector-icons/Entypo";
+import { Container, Content, List } from "native-base";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import DownloadItem from "./DownloadItem";
+
+import HeaderBar from "../../components/HeaderBar";
 
 class CarteHorsConnection extends React.Component {
   static propTypes = {
@@ -15,16 +16,6 @@ class CarteHorsConnection extends React.Component {
   constructor(props) {
     super(props);
 
-    //this.items = Object.values(this.props.offline_status).sort(function(a, b) {
-    //  if (a.name < b.name) return -1;
-    //  if (a.name > b.name) return 1;
-    //  return 0;
-    //});
-//
-    //this.items.map(item => {
-    //  console.log(item.name);
-    //});
-
     console.log("CarteHorsConnection componentDidMount ", this.props);
   }
 
@@ -33,30 +24,17 @@ class CarteHorsConnection extends React.Component {
   }
 
   render() {
-    //console.log("offline_status", this.props.offline_status);
-
     const items = Object.values(this.props.offline_status).sort(function(a, b) {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
       return 0;
     });
 
-    //this.items.map(item => {
-    //  console.log(item.name);
-    //});
-
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent onPress={() => this.props.navigation.openDrawer()}>
-              <Icon name="menu" size={30} />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Carte Hors Connection</Title>
-          </Body>
-        </Header>
+        <HeaderBar openDrawer={() => this.props.navigation.openDrawer()}>
+          Carte Hors Connection
+        </HeaderBar>
         <Content padder>
           <List>
             {items.map((item, index) => {
@@ -74,3 +52,15 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(CarteHorsConnection);
+
+
+//<Header>
+//<Left style={{ flex: 1}}>
+//  <Button transparent onPress={() => this.props.navigation.openDrawer()}>
+//    <Icon name="menu" size={30} />
+//  </Button>
+//</Left>
+//<Body style={{ flex: 10,  justifyContent: 'center', alignItems: 'center'  }}>
+//  <Title>Carte Hors Connection</Title>
+//</Body>
+//</Header>

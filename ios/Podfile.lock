@@ -1,8 +1,6 @@
 PODS:
   - React (0.55.4):
     - React/Core (= 0.55.4)
-  - react-native-image-picker (0.14.3):
-    - React
   - react-native-mapbox-gl (6.1.2-beta2):
     - React
   - react-native-splash-screen (3.0.6):
@@ -54,7 +52,6 @@ PODS:
   - yoga (0.55.4.React)
 
 DEPENDENCIES:
-  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - "react-native-mapbox-gl (from `../node_modules/@mapbox/react-native-mapbox-gl`)"
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React/ART (from `../node_modules/react-native`)
@@ -81,8 +78,6 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   React:
     :path: "../node_modules/react-native"
-  react-native-image-picker:
-    :path: "../node_modules/react-native-image-picker"
   react-native-mapbox-gl:
     :path: "../node_modules/@mapbox/react-native-mapbox-gl"
   react-native-splash-screen:
@@ -96,13 +91,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   React: aa2040dbb6f317b95314968021bd2888816e03d5
-  react-native-image-picker: b303e31c3c4ada1d7cb1342423d328d2efb07fb3
   react-native-mapbox-gl: b42480060cdcc515dfa3d8e403fb4dd32466a1b9
   react-native-splash-screen: 8e3f866dc79bfe533baeffd0a38c33f7a7eae7f8
   ReactNativePermissions: 9f2d9c45c98800795e6c2ed330e25d11a66a8169
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: b0b69a7ff11306ca382c2b5b3941c45fb686e133
+PODFILE CHECKSUM: 49e630a6f67b649fc516e0951f4be7765399865d
 
 COCOAPODS: 1.5.3

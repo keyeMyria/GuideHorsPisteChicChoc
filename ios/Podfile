@@ -37,7 +37,7 @@ target 'reactAQ' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'ReactNativePermissions', :path => '../node_modules/react-native-permissions'
-  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
