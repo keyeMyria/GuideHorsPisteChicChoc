@@ -14,7 +14,7 @@ export default class BulletinAvalanche extends React.Component {
   // }
 
   static propTypes = {
-    navigation: PropTypes.object.isRequired,
+    navigation: PropTypes.object.isRequired
   };
 
   render() {
@@ -28,7 +28,8 @@ export default class BulletinAvalanche extends React.Component {
             <WebView
               style={styles.webview}
               source={{
-                uri: "https://avalanchequebec.ca/conditions-chic-chocs#rapports-neige",
+                uri:
+                  "https://avalanchequebec.ca/conditions-chic-chocs#rapports-neige"
               }}
               onError={() => console.log("onError")}
               onLoad={() => console.log("onLoad")}
@@ -46,12 +47,12 @@ export default class BulletinAvalanche extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   activityIndicator: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: 80,
-  },
+    height: 80
+  }
 });
