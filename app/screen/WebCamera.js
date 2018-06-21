@@ -1,17 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Header,
-  Title,
-  Left,
-  Right,
-  Button,
-  Body,
-  Content,
-  Text,
-  Card,
-  CardItem
-} from "native-base";
+import { Container, Body, Content, Text, Card, CardItem } from "native-base";
 import PropTypes from "prop-types";
 import HeaderBar from "../components/HeaderBar";
 

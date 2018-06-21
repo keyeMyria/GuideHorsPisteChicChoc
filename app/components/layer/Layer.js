@@ -19,20 +19,37 @@ export function generateLayers(source) {
     //}
     if (layer.type == "marker") {
       layers.push(
-        <Mapbox.ShapeSource key={layer.name} id={layer.name} shape={featuresToRender}>
-          <Mapbox.SymbolLayer id={layer.name} style={[styles[layer.name]]} maxZoomLevel={layer.maxZoom} minZoomLevel={layer.minZoom} />
+        <Mapbox.ShapeSource
+          key={layer.name}
+          id={layer.name}
+          shape={featuresToRender}
+        >
+          <Mapbox.SymbolLayer
+            id={layer.name}
+            style={[styles[layer.name]]}
+            maxZoomLevel={layer.maxZoom}
+            minZoomLevel={layer.minZoom}
+          />
         </Mapbox.ShapeSource>
       );
     }
     if (layer.type == "ligne") {
       layers.push(
-        <Mapbox.ShapeSource key={layer.name} id={layer.name} shape={featuresToRender}>
+        <Mapbox.ShapeSource
+          key={layer.name}
+          id={layer.name}
+          shape={featuresToRender}
+        >
           <Mapbox.LineLayer id={layer.name} style={styles[layer.name]} />
         </Mapbox.ShapeSource>
       );
     } else if (layer.type == "secteur") {
       layers.push(
-        <Mapbox.ShapeSource key={layer.name} id={layer.name} shape={featuresToRender}>
+        <Mapbox.ShapeSource
+          key={layer.name}
+          id={layer.name}
+          shape={featuresToRender}
+        >
           <Mapbox.FillLayer id={layer.name} style={styles[layer.name]} />
         </Mapbox.ShapeSource>
       );

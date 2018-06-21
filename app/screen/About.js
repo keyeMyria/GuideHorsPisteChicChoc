@@ -1,18 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Header,
-  Title,
-  Left,
-  Right,
-  Button,
-  Body,
-  Content,
-  Text,
-  Card,
-  CardItem
-} from "native-base";
-import Icon from "react-native-vector-icons/Entypo";
+import { Container, Body, Content, Text, Card, CardItem } from "native-base";
 import PropTypes from "prop-types";
 import HeaderBar from "../components/HeaderBar";
 
@@ -25,13 +12,13 @@ export default class BulletinAvalanche extends React.Component {
     return (
       <Container>
         <HeaderBar openDrawer={() => this.props.navigation.openDrawer()}>
-        À propos
+          À propos
         </HeaderBar>
         <Content padder>
           <Card>
             <CardItem>
               <Body>
-                <Text>À propose de l'application</Text>
+                <Text>À propose de l&#39;application</Text>
               </Body>
             </CardItem>
           </Card>

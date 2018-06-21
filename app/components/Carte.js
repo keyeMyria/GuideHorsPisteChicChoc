@@ -10,7 +10,10 @@ import { MAPBOX_MAP_STYLE } from "../utils/conf";
 
 import geojsonExtent from "@mapbox/geojson-extent";
 
-import { getGroupeNameFromFeatures, getBoundingBoxFromGroupe } from "../lib/geojsonManager";
+import {
+  getGroupeNameFromFeatures,
+  getBoundingBoxFromGroupe
+} from "../lib/geojsonManager";
 
 import { getScreenBoundingBox } from "../lib/screen";
 import { generateLayers } from "./layer/Layer";
@@ -77,14 +80,22 @@ export default class Carte extends Component {
 
   async zoomToFeatures(featuresToBounds, animation_time = 1) {
     const bounds = geojsonExtent(featuresToBounds);
-    await this._map.fitBounds([bounds[2], bounds[3]], [bounds[0], bounds[1]], [5, 10, 5, 5], animation_time);
+    await this._map.fitBounds(
+      [bounds[2], bounds[3]],
+      [bounds[0], bounds[1]],
+      [5, 10, 5, 5],
+      animation_time
+    );
   }
 
   async onPress(e) {
     console.log("onPress");
 
     const selectedFeatures = await this._map.queryRenderedFeaturesInRect(
-      getScreenBoundingBox(e.properties.screenPointX, e.properties.screenPointY),
+      getScreenBoundingBox(
+        e.properties.screenPointX,
+        e.properties.screenPointY
+      ),
       null,
       geoJsonLayer.map(item => item.name)
     );
@@ -93,11 +104,20 @@ export default class Carte extends Component {
 
     if (groupename.length > 0) {
       console.log("zooming to groupename " + groupename[0]);
-      const featuresToBounds = getBoundingBoxFromGroupe(global.geoJsonData, "groupe", groupename[0]);
+      const featuresToBounds = getBoundingBoxFromGroupe(
+        global.geoJsonData,
+        "groupe",
+        groupename[0]
+      );
       await this.zoomToFeatures(featuresToBounds, 150);
     } else {
       if (selectedFeatures.features.length > 0) {
-        ToastAndroid.show(selectedFeatures.features[0].properties.element + ": " + selectedFeatures.features[0].properties.name, ToastAndroid.SHORT);
+        ToastAndroid.show(
+          selectedFeatures.features[0].properties.element +
+            ": " +
+            selectedFeatures.features[0].properties.name,
+          ToastAndroid.SHORT
+        );
         console.log(selectedFeatures.features[0]);
       }
     }
@@ -132,7 +152,8 @@ export default class Carte extends Component {
           rotateEnabled={false}
           compassEnabled={true}
           //animated={true}
-          userTrackingMode={Mapbox.UserTrackingModes.FolloWithHeading}>
+          userTrackingMode={Mapbox.UserTrackingModes.FolloWithHeading}
+        >
           {generateLayers(global.geoJsonData)}
         </Mapbox.MapView>
 
@@ -143,7 +164,8 @@ export default class Carte extends Component {
             top: 20,
             right: 1,
             fontSize: 10
-          }}>
+          }}
+        >
           {zoom}
         </Text>
 
@@ -154,8 +176,16 @@ export default class Carte extends Component {
           position="bottomRight"
           onPress={() => {
             console.log(this.state.lastLocation);
-            if (this.state.lastLocation) this._map.flyTo([this.state.lastLocation.coords.longitude, this.state.lastLocation.coords.latitude], 2000);
-          }}>
+            if (this.state.lastLocation)
+              this._map.flyTo(
+                [
+                  this.state.lastLocation.coords.longitude,
+                  this.state.lastLocation.coords.latitude
+                ],
+                2000
+              );
+          }}
+        >
           <Icon name="my-location" />
         </Fab>
       </View>

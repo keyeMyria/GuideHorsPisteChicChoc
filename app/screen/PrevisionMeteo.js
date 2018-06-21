@@ -1,30 +1,21 @@
 import React from "react";
-import { Container, Header, Title, Left, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
-import Icon from "react-native-vector-icons/Entypo";
+import { Container, Body, Content, Text, Card, CardItem } from "native-base";
+
+import PropTypes from "prop-types";
+
+import HeaderBar from "../components/HeaderBar";
 
 export default class BulletinAvalanche extends React.Component {
-
-    //static navigationOptions = {
-    //    drawerLabel: 'Prévisions météo',
-    //    drawerIcon: () => ( <Icon name="icloud" size={20}/> )
-    //  }
+  static propTypes = {
+    navigation: PropTypes.object.isRequired
+  };
 
   render() {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.openDrawer()}>
-              <Icon name="menu"  size={30}/>
-            </Button>
-          </Left>
-          <Body>
-            <Title>Prévisions météo</Title>
-          </Body>
-          <Right />
-        </Header>
+        <HeaderBar openDrawer={() => this.props.navigation.openDrawer()}>
+          Prévisions météo
+        </HeaderBar>
         <Content padder>
           <Card>
             <CardItem>
@@ -33,7 +24,6 @@ export default class BulletinAvalanche extends React.Component {
               </Body>
             </CardItem>
           </Card>
-
         </Content>
       </Container>
     );

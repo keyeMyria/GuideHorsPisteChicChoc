@@ -1,5 +1,4 @@
 import Mapbox from "@mapbox/react-native-mapbox-gl";
-//import { MAPBOX_MAP_STYLE } from "../utils/conf";
 
 import geojsonExtent from "@mapbox/geojson-extent";
 import { getSourceData } from "../lib/geojsonManager";
@@ -11,7 +10,11 @@ import { MAPBOX_MAP_STYLE } from "../utils/conf";
 
 export function getInitialState() {
   const initialState = {};
-  const featuresToBounds = getSourceData(geoJsonSourceData, "element", "boundingbox");
+  const featuresToBounds = getSourceData(
+    geoJsonSourceData,
+    "element",
+    "boundingbox"
+  );
 
   featuresToBounds.features.map(feature => {
     const groupe = feature.properties.groupe;
@@ -30,13 +33,13 @@ export function getInitialState() {
     }
 
     initialState[groupe] = {
-      groupe: groupe,
+      groupe,
       name: feature.properties.name,
       bounds: geojsonExtent(feature),
       offlineRegion: undefined,
       offlineRegionStatus: undefined,
-      minZoom: minZoom,
-      maxZoom: maxZoom,
+      minZoom,
+      maxZoom,
       error: undefined
     };
   });
@@ -47,11 +50,10 @@ export function getInitialState() {
 export async function subscribeOfflineMapsToStore(offline_status, dispatch) {
   console.log("subscribeOfflineMapsToStore()");
 
-  //const progressListener = (offlinePack, status) => console.log(offlinePack, status)
-  //const errorListener = (offlinePack, err) => console.log(offlinePack, err)
+  // const progressListener = (offlinePack, status) => console.log(offlinePack, status)
+  // const errorListener = (offlinePack, err) => console.log(offlinePack, err)
 
-
-  //Mapbox.offlineManager.getPacks()
+  // Mapbox.offlineManager.getPacks()
   //  .then(packs => {
   //    console.log("packs", packs);
   //    for (let packName of packs) {
@@ -64,101 +66,88 @@ export async function subscribeOfflineMapsToStore(offline_status, dispatch) {
   //          //.then(test => {
   //          //  console.log("test3",test);
   //          //});
-  //          
+  //
   //        }).catch(err => {
   //          console.error("error1",err);
   //        });
   //    });
-  //      
+  //
   //    }
   //  }).catch(err => {
   //    console.error("error",err);
   //  });
 
+  Mapbox.offlineManager
+    .getPacks()
+    .then(packs => {
+      // console.log("packs", packs);
+      for (const packName of packs) {
+        // console.log("(",packName._metadata.name,")");
+        packName.status().then(() => {
+          // console.log("test",test);
 
+          Mapbox.offlineManager
+            .subscribe(
+              packName._metadata.name,
+              (offlineRegion, offlineRegionStatus) => {
+                const groupe = offlineRegion._metadata.name;
 
+                // console.log("updateOfflineRegion", groupe, offlineRegion, offlineRegionStatus);
 
-
-
-
-  Mapbox.offlineManager.getPacks()
-  .then(packs => {
-    //console.log("packs", packs);
-    for (let packName of packs) {
-      //console.log("(",packName._metadata.name,")");
-      packName.status().then(test => {
-        //console.log("test",test);
-
-
-
-        Mapbox.offlineManager.subscribe(
-          packName._metadata.name,
-          (offlineRegion, offlineRegionStatus) => {
-            const groupe = offlineRegion._metadata.name;
-  
-            //console.log("updateOfflineRegion", groupe, offlineRegion, offlineRegionStatus);
-  
-            dispatch(
-              updateOfflineRegion(groupe, {
-                offlineRegion: offlineRegion,
-                offlineRegionStatus: offlineRegionStatus
-              })
-            );
-          },
-          (offlineRegion, message) => {
-            const groupe = offlineRegion._metadata.name;
-            dispatch(
-              updateOfflineError(groupe, {
-                offlineRegion: offlineRegion,
-                error: message
-              })
-            );
-            //console.log("updateOfflineError", offlineRegion, message);
-          }
-        ).then(() => {
-          console.log("DONE");
-          packName.resume();
-          //.then(test => {
-          //  console.log("test3",test);
-          //});
-          
-        }).catch(err => {
-          console.error("error1",err);
+                dispatch(
+                  updateOfflineRegion(groupe, {
+                    offlineRegion,
+                    offlineRegionStatus
+                  })
+                );
+              },
+              (offlineRegion, message) => {
+                const groupe = offlineRegion._metadata.name;
+                dispatch(
+                  updateOfflineError(groupe, {
+                    offlineRegion,
+                    error: message
+                  })
+                );
+                // console.log("updateOfflineError", offlineRegion, message);
+              }
+            )
+            .then(() => {
+              console.log("DONE");
+              packName.resume();
+              // .then(test => {
+              //  console.log("test3",test);
+              // });
+            })
+            .catch(err => {
+              console.error("error1", err);
+            });
         });
-
+      }
+    })
+    .catch(err => {
+      console.error("error", err);
     });
-      
-    }
-  }).catch(err => {
-    console.error("error",err);
-  });
 
+  // const offlinePacks = await Mapbox.offlineManager.getPacks();
 
+  // console.log("mapbox", Mapbox.offlineManager);
 
-return;
+  // let storeState = store.getState();
 
-  //const offlinePacks = await Mapbox.offlineManager.getPacks();
-
-
-
-
-  //console.log("mapbox", Mapbox.offlineManager);
-
-  //let storeState = store.getState();
-
-  //Object.keys(offline_status).map(async function(item) {
+  // Object.keys(offline_status).map(async function(item) {
   //  const pack = Mapbox.offlineManager.getPack(item);
   //  console.log(pack);
-//
+  //
   //  if (pack != undefined) {
   //    console.log("subscribe ", item);
   //    Mapbox.offlineManager.subscribe(
   //      item,
   //      (offlineRegion, offlineRegionStatus) => {
   //        const groupe = offlineRegion._metadata.name;
-//
+  //
   //        console.log("updateOfflineRegion", groupe, offlineRegion, offlineRegionStatus);
-//
+  //
   //        dispatch(
   //          updateOfflineRegion(groupe, {
   //            offlineRegion: offlineRegion,
@@ -178,22 +167,17 @@ return;
   //      }
   //    );
   //  }
-  //});
-
-
-
-
-
-
-
-
+  // });
 }
 
 export function startMapDownload(item, dispatch) {
   const options = {
     name: item.groupe,
     styleURL: MAPBOX_MAP_STYLE,
-    bounds: [[item.bounds[0], item.bounds[1]], [item.bounds[2], item.bounds[3]]],
+    bounds: [
+      [item.bounds[0], item.bounds[1]],
+      [item.bounds[2], item.bounds[3]]
+    ],
     minZoom: item.minZoom,
     maxZoom: item.maxZoom
   };
@@ -202,24 +186,29 @@ export function startMapDownload(item, dispatch) {
     (offlineRegion, offlineRegionStatus) => {
       const groupe = offlineRegionStatus.name;
 
-      console.log("startMapDownload", groupe, offlineRegion, offlineRegionStatus);
+      console.log(
+        "startMapDownload",
+        groupe,
+        offlineRegion,
+        offlineRegionStatus
+      );
 
       dispatch(
         updateOfflineRegion(groupe, {
-          offlineRegion: offlineRegion,
-          offlineRegionStatus: offlineRegionStatus
+          offlineRegion,
+          offlineRegionStatus
         })
       );
     },
     (offlineRegion, message) => {
       const groupe = message.name;
-      //console.log("startMapDownloaderror", groupe, offlineRegion, message);
+      // console.log("startMapDownloaderror", groupe, offlineRegion, message);
       dispatch(
         updateOfflineError(groupe, {
           error: message
         })
       );
-      //console.log("updateOfflineError", offlineRegion, message);
+      // console.log("updateOfflineError", offlineRegion, message);
     }
   );
 }

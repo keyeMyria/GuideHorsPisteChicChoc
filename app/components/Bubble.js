@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
 
 class Bubble extends React.PureComponent {
   static propTypes = {
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    children: PropTypes.object.isRequired
   };
 
   render() {
@@ -33,11 +34,7 @@ class Bubble extends React.PureComponent {
       );
     }
 
-    return (
-      <View style={[styles.containter, this.props.style]}>
-        {innerChildView}
-      </View>
-    );
+    return <View style={styles.containter}>{innerChildView}</View>;
   }
 }
 

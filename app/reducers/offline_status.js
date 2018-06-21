@@ -3,7 +3,7 @@ import { getInitialState } from "../lib/offlineManager";
 const offline_status = (state = getInitialState(), action) => {
   switch (action.type) {
     case "UPDATE_OFFLINE_REGION":
-      console.log("action", action);
+      // console.log("action", action);
       return {
         ...state,
         [action.groupe]: {

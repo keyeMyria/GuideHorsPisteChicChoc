@@ -12,14 +12,16 @@ export default class SideBar extends React.Component {
           style={{
             flex: 0.3,
             alignContent: "center"
-          }}>
+          }}
+        >
           <View
             style={{
               flex: 1,
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center"
-            }}>
+            }}
+          >
             <Image
               style={{
                 height: 92,
