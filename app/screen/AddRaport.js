@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addRapport } from "../actions";
+import { addRapport } from "../actions/rapports";
 import {
   Container,
   Header,
@@ -36,20 +36,7 @@ function guid() {
       .toString(16)
       .substring(1);
   }
-  return (
-    s4() +
-    s4() +
-    "-" +
-    s4() +
-    "-" +
-    s4() +
-    "-" +
-    s4() +
-    "-" +
-    s4() +
-    s4() +
-    s4()
-  );
+  return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
 }
 
 class BulletinAvalanche extends Component {
@@ -154,23 +141,17 @@ class BulletinAvalanche extends Component {
                       <Text note>{FormData[NomDeLaSection].soustitre}</Text>
                     </View>
                   </Row>
-                  {FormData[NomDeLaSection].option_description.map(
-                    (radio_description, radio_index) => (
-                      <Row key={radio_index}>
-                        <RadioItem
-                          index={radio_index + 1}
-                          selected={
-                            radio_index + 1 == this.state[NomDeLaSection]
-                          }
-                          onPress={selected =>
-                            this.setState({ [NomDeLaSection]: selected })
-                          }
-                          title={radio_description[0]}
-                          description={radio_description[1]}
-                        />
-                      </Row>
-                    )
-                  )}
+                  {FormData[NomDeLaSection].option_description.map((radio_description, radio_index) => (
+                    <Row key={radio_index}>
+                      <RadioItem
+                        index={radio_index + 1}
+                        selected={radio_index + 1 == this.state[NomDeLaSection]}
+                        onPress={selected => this.setState({ [NomDeLaSection]: selected })}
+                        title={radio_description[0]}
+                        description={radio_description[1]}
+                      />
+                    </Row>
+                  ))}
                 </Grid>
               </Item>
             ))}
@@ -187,9 +168,7 @@ class BulletinAvalanche extends Component {
                     style={{ flex: 1 }}
                     rowSpan={5}
                     bordered
-                    onChangeText={text =>
-                      this.setState({ info_complementaires: text })
-                    }
+                    onChangeText={text => this.setState({ info_complementaires: text })}
                     placeholder="Veuillez indiquer si il y a eu des victimes, ainsi que vos coordonnées afin de vous contacter si nous avons besoins de plus d'informations."
                   />
                 </Row>

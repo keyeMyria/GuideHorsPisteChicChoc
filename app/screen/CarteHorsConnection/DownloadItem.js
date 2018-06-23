@@ -64,17 +64,17 @@ class DownloadItem extends React.Component {
             title={this.props.item.name}
             note={"Téléchargement..."}
           />
-          //<InactiveDownload
-          //onPress={() => this.props.item.offlineRegion.pause()}
-          //icon={"circle-with-cross"}
-          //color={"green"}
-          //title={this.props.item.name}
-          //note={"download: " + this.props.item.offlineRegionStatus.percentage / 100}
-          ///>
-
         );
       } else if (this.props.item.offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Complete) {
-        return <InactiveDownload onPress={() => this.deleteMap()} icon={"check"} color={"green"} title={this.props.item.name} note={"Terminé"} />;
+        return (
+          <InactiveDownload
+            onPress={() => this.deleteMap()}
+            icon={"check"}
+            color={"green"}
+            title={this.props.item.name}
+            note={"Terminé"}
+          />
+        );
       } else {
         return (
           <InactiveDownload
@@ -82,7 +82,9 @@ class DownloadItem extends React.Component {
             icon={"controller-play"}
             color={"black"}
             title={this.props.item.name}
-            note={"Téléchargement en attente (" + Number(this.props.item.offlineRegionStatus.percentage).toFixed(1) + "%)"}
+            note={
+              "Téléchargement en attente (" + Number(this.props.item.offlineRegionStatus.percentage).toFixed(1) + "%)"
+            }
           />
         );
       }

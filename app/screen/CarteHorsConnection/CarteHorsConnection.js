@@ -32,9 +32,7 @@ class CarteHorsConnection extends React.Component {
 
     return (
       <Container>
-        <HeaderBar openDrawer={() => this.props.navigation.openDrawer()}>
-          Carte Hors Connection
-        </HeaderBar>
+        <HeaderBar openDrawer={() => this.props.navigation.openDrawer()}>Carte Hors Connection</HeaderBar>
         <Content padder>
           <List>
             {items.map((item, index) => {
@@ -52,15 +50,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(CarteHorsConnection);
-
-
-//<Header>
-//<Left style={{ flex: 1}}>
-//  <Button transparent onPress={() => this.props.navigation.openDrawer()}>
-//    <Icon name="menu" size={30} />
-//  </Button>
-//</Left>
-//<Body style={{ flex: 10,  justifyContent: 'center', alignItems: 'center'  }}>
-//  <Title>Carte Hors Connection</Title>
-//</Body>
-//</Header>

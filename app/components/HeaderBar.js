@@ -6,7 +6,7 @@ import { Header, Left, Button, Icon, Body, Title } from "native-base";
 class HeaderBar extends Component {
   static propTypes = {
     openDrawer: PropTypes.func.isRequired,
-    children: PropTypes.object.isRequired
+    children: PropTypes.string.isRequired
   };
 
   render() {

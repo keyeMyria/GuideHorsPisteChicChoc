@@ -150,6 +150,7 @@ android {
 }
 
 dependencies {
+    compile project(':bugsnag-react-native')
     compile project(':react-native-vector-icons')
     compile project(':react-native-splash-screen')
     compile project(':@mapbox/react-native-mapbox-gl')

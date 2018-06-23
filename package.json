@@ -24,8 +24,9 @@
     "@turf/destination": "^6.0.1",
     "@turf/helpers": "^6.1.4",
     "@turf/turf": "^5.1.6",
+    "bugsnag-react-native": "^2.9.5",
     "moment": "^2.22.2",
-    "native-base": "^2.4.5",
+    "native-base": "^2.6.1",
     "npm-check": "^5.7.1",
     "react": "16.3.1",
     "react-dom": "^16.4.0",
@@ -42,7 +43,8 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
-    "turf-bezier": "^3.0.12"
+    "turf-bezier": "^3.0.12",
+    "ws": "^5.2.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
@@ -62,8 +64,7 @@
     "jest-serializer-enzyme": "^1.0.0",
     "prettier-eslint": "^8.8.1",
     "react-addons-test-utils": "^15.6.2",
-    "react-test-renderer": "16.3.1",
-    "reactotron-react-native": "^1.14.0"
+    "react-test-renderer": "16.3.1"
   },
   "jest": {
     "preset": "react-native",

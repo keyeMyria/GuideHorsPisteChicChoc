@@ -18,10 +18,7 @@ import Routes from "./Routes";
 
 import { subscribeOfflineMapsToStore } from "./lib/offlineManager";
 
-YellowBox.ignoreWarnings([
-  "Warning: isMounted(...) is deprecated",
-  "Module RCTImageLoader"
-]);
+YellowBox.ignoreWarnings(["Warning: isMounted(...) is deprecated", "Module RCTImageLoader"]);
 
 const { persistor, store } = configureAppStore();
 
@@ -66,10 +63,7 @@ export default class App extends Component {
 
     prepareGeojsonData();
 
-    await subscribeOfflineMapsToStore(
-      store.getState().offline_status,
-      store.dispatch
-    );
+    await subscribeOfflineMapsToStore(store.dispatch);
 
     this.setState({ geoJsonDataReady: true });
 
@@ -89,20 +83,14 @@ export default class App extends Component {
   }
 
   checkIfLoadingDone() {
-    if (
-      this.state.locationPermission == "authorized" &&
-      this.state.geoJsonDataReady == true
-    )
-      return true;
+    if (this.state.locationPermission == "authorized" && this.state.geoJsonDataReady == true) return true;
     else return false;
   }
 
   render() {
     return (
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          {this.checkIfLoadingDone() ? <Routes /> : <Spinner />}
-        </PersistGate>
+        <PersistGate persistor={persistor}>{this.checkIfLoadingDone() ? <Routes /> : <Spinner />}</PersistGate>
       </Provider>
     );
   }

@@ -4,17 +4,13 @@ import geojsonExtent from "@mapbox/geojson-extent";
 import { getSourceData } from "../lib/geojsonManager";
 import geoJsonSourceData from "../assets/all.json";
 
-import { updateOfflineRegion, updateOfflineError } from "../actions";
+import { updateOfflineRegion, updateOfflineError } from "../actions/offline";
 
 import { MAPBOX_MAP_STYLE } from "../utils/conf";
 
 export function getInitialState() {
   const initialState = {};
-  const featuresToBounds = getSourceData(
-    geoJsonSourceData,
-    "element",
-    "boundingbox"
-  );
+  const featuresToBounds = getSourceData(geoJsonSourceData, "element", "boundingbox");
 
   featuresToBounds.features.map(feature => {
     const groupe = feature.properties.groupe;
@@ -47,35 +43,8 @@ export function getInitialState() {
   return initialState;
 }
 
-export async function subscribeOfflineMapsToStore(offline_status, dispatch) {
+export async function subscribeOfflineMapsToStore(dispatch) {
   console.log("subscribeOfflineMapsToStore()");
-
-  // const progressListener = (offlinePack, status) => console.log(offlinePack, status)
-  // const errorListener = (offlinePack, err) => console.log(offlinePack, err)
-
-  // Mapbox.offlineManager.getPacks()
-  //  .then(packs => {
-  //    console.log("packs", packs);
-  //    for (let packName of packs) {
-  //      console.log("(",packName._metadata.name,")");
-  //      packName.status().then(test => {
-  //        console.log("test",test);
-  //        Mapbox.offlineManager.subscribe(packName._metadata.name, progressListener, errorListener).then(() => {
-  //          console.log("DONE");
-  //          packName.resume();
-  //          //.then(test => {
-  //          //  console.log("test3",test);
-  //          //});
-  //
-  //        }).catch(err => {
-  //          console.error("error1",err);
-  //        });
-  //    });
-  //
-  //    }
-  //  }).catch(err => {
-  //    console.error("error",err);
-  //  });
 
   Mapbox.offlineManager
     .getPacks()
@@ -128,56 +97,13 @@ export async function subscribeOfflineMapsToStore(offline_status, dispatch) {
     .catch(err => {
       console.error("error", err);
     });
-
-  // const offlinePacks = await Mapbox.offlineManager.getPacks();
-
-  // console.log("mapbox", Mapbox.offlineManager);
-
-  // let storeState = store.getState();
-
-  // Object.keys(offline_status).map(async function(item) {
-  //  const pack = Mapbox.offlineManager.getPack(item);
-  //  console.log(pack);
-  //
-  //  if (pack != undefined) {
-  //    console.log("subscribe ", item);
-  //    Mapbox.offlineManager.subscribe(
-  //      item,
-  //      (offlineRegion, offlineRegionStatus) => {
-  //        const groupe = offlineRegion._metadata.name;
-  //
-  //        console.log("updateOfflineRegion", groupe, offlineRegion, offlineRegionStatus);
-  //
-  //        dispatch(
-  //          updateOfflineRegion(groupe, {
-  //            offlineRegion: offlineRegion,
-  //            offlineRegionStatus: offlineRegionStatus
-  //          })
-  //        );
-  //      },
-  //      (offlineRegion, message) => {
-  //        const groupe = offlineRegion._metadata.name;
-  //        dispatch(
-  //          updateOfflineError(groupe, {
-  //            offlineRegion: offlineRegion,
-  //            error: message
-  //          })
-  //        );
-  //        console.log("updateOfflineError", offlineRegion, message);
-  //      }
-  //    );
-  //  }
-  // });
 }
 
 export function startMapDownload(item, dispatch) {
   const options = {
     name: item.groupe,
     styleURL: MAPBOX_MAP_STYLE,
-    bounds: [
-      [item.bounds[0], item.bounds[1]],
-      [item.bounds[2], item.bounds[3]]
-    ],
+    bounds: [[item.bounds[0], item.bounds[1]], [item.bounds[2], item.bounds[3]]],
     minZoom: item.minZoom,
     maxZoom: item.maxZoom
   };
@@ -186,12 +112,7 @@ export function startMapDownload(item, dispatch) {
     (offlineRegion, offlineRegionStatus) => {
       const groupe = offlineRegionStatus.name;
 
-      console.log(
-        "startMapDownload",
-        groupe,
-        offlineRegion,
-        offlineRegionStatus
-      );
+      console.log("startMapDownload", groupe, offlineRegion, offlineRegionStatus);
 
       dispatch(
         updateOfflineRegion(groupe, {

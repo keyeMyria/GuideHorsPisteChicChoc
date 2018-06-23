@@ -13,7 +13,7 @@ export default class ActiveDownload extends React.Component {
     title: PropTypes.string.isRequired,
     note: PropTypes.string.isRequired
   };
-  //const ActiveDownload = ({ percentage, onPress, title, note }) =>
+
   render() {
     return (
       <ListItem onPress={() => this.props.onPress()}>
