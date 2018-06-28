@@ -4,9 +4,13 @@ import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 
-import Mapbox from "@mapbox/react-native-mapbox-gl";
-
-import { startMapDownload, deleteMap } from "../../lib/offlineManager";
+import {
+  startMapDownload,
+  deleteMap,
+  resumePack,
+  pausePack,
+  pack_status
+} from "../../actions/offline";
 
 import ActiveDownload from "./ActiveDownload";
 import InactiveDownload from "./InactiveDownload";
@@ -17,16 +21,16 @@ class DownloadItem extends React.Component {
     dispatch: PropTypes.func.isRequired
   };
 
-  componentWillUnmount() {
-    //console.log("componentWillUnmount: ", this.props.feature.properties.name);
-    //if (this.props.feature.offlineRegion) this.props.feature.offlineRegion.pause();
-    //Mapbox.offlineManager.unsubscribe(this.props.feature.properties.groupe);
+  componentDidMount() {
+    console.log("componentDidMount: ", this.props.item);
   }
 
   deleteMap() {
     Alert.alert(
       "Attention",
-      "Etes-vous certain de vouloir effacer les cartes hors ligne pour " + this.props.item.name + "?",
+      "Etes-vous certain de vouloir effacer les cartes hors ligne pour " +
+        this.props.item.name +
+        "?",
       [
         {
           text: "Annuler",
@@ -35,7 +39,7 @@ class DownloadItem extends React.Component {
         {
           text: "OK",
           onPress: () => {
-            deleteMap(this.props.item, this.props.dispatch);
+            this.props.dispatch(deleteMap(this.props.item));
           }
         }
       ],
@@ -44,28 +48,51 @@ class DownloadItem extends React.Component {
   }
 
   render() {
-    if (this.props.item.error) {
-      console.log("error", this.props.item);
-      return (
-        <InactiveDownload
-          onPress={() => this.deleteMap()}
-          icon={"circle-with-cross"}
-          color={"red"}
-          title={this.props.item.name}
-          note={"Erreur pendant le téléchargement: " + this.props.item.error.message}
-        />
-      );
-    } else if (this.props.item.offlineRegionStatus) {
-      if (this.props.item.offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Active) {
+    switch (this.props.item.pack_status) {
+      case pack_status.RESUMING:
+        return (
+          <InactiveDownload
+            onPress={() => {}}
+            icon={"download"}
+            color={"grey"}
+            title={this.props.item.name}
+            note={"Analyse de la carte..."}
+          />
+        );
+
+      case pack_status.DOWNLOAD_WILL_START:
+        return (
+          <InactiveDownload
+            onPress={() => {}}
+            icon={"download"}
+            color={"grey"}
+            title={this.props.item.name}
+            note={"Téléchargement commencé..."}
+          />
+        );
+
+      case pack_status.NOT_DOWNLOADED:
+        return (
+          <InactiveDownload
+            onPress={() => this.props.dispatch(startMapDownload(this.props.item))}
+            icon={"download"}
+            color={"blue"}
+            title={this.props.item.name}
+            note={""}
+          />
+        );
+
+      case pack_status.DOWNLOADING:
         return (
           <ActiveDownload
-            onPress={() => this.props.item.offlineRegion.pause()}
+            onPress={() => this.props.dispatch(pausePack(this.props.item))}
             percentage={this.props.item.offlineRegionStatus.percentage / 100}
             title={this.props.item.name}
             note={"Téléchargement..."}
           />
         );
-      } else if (this.props.item.offlineRegionStatus.state == Mapbox.OfflinePackDownloadState.Complete) {
+
+      case pack_status.DOWNLOADED:
         return (
           <InactiveDownload
             onPress={() => this.deleteMap()}
@@ -75,29 +102,32 @@ class DownloadItem extends React.Component {
             note={"Terminé"}
           />
         );
-      } else {
+
+      case pack_status.PAUSED:
         return (
           <InactiveDownload
-            onPress={() => this.props.item.offlineRegion.resume()}
+            onPress={() => this.props.dispatch(resumePack(this.props.item))}
             icon={"controller-play"}
             color={"black"}
             title={this.props.item.name}
             note={
-              "Téléchargement en attente (" + Number(this.props.item.offlineRegionStatus.percentage).toFixed(1) + "%)"
+              "Téléchargement en attente (" +
+              Number(this.props.item.offlineRegionStatus.percentage).toFixed(1) +
+              "%)"
             }
           />
         );
-      }
-    } else {
-      return (
-        <InactiveDownload
-          onPress={() => startMapDownload(this.props.item, this.props.dispatch)}
-          icon={"download"}
-          color={"blue"}
-          title={this.props.item.name}
-          note={""}
-        />
-      );
+
+      case pack_status.ERROR:
+        return (
+          <InactiveDownload
+            onPress={() => this.deleteMap()}
+            icon={"circle-with-cross"}
+            color={"red"}
+            title={this.props.item.name}
+            note={"Erreur pendant le téléchargement: " + this.props.item.error.message}
+          />
+        );
     }
   }
 }

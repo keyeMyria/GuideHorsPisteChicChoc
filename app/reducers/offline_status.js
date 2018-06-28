@@ -1,18 +1,40 @@
-import { getInitialState } from "../lib/offlineManager";
+import {
+  ADD_OFFLINE_REGION,
+  UPDTATE_MAP_STATUS,
+  UPDATE_OFFLINE_REGION,
+  UPDATE_OFFLINE_ERROR
+} from "../actions/offline";
 
-const offline_status = (state = getInitialState(), action) => {
+const offline_status = (state = {}, action) => {
+  //console.log("action", action);
   switch (action.type) {
-    case "UPDATE_OFFLINE_REGION":
-      console.log("action", action);
+    case ADD_OFFLINE_REGION:
+      return {
+        ...state,
+        [action.groupe]: {
+          ...state[action.groupe],
+          ...action.payload
+        }
+      };
+    case UPDTATE_MAP_STATUS:
+      return {
+        ...state,
+        [action.groupe]: {
+          ...state[action.groupe],
+          pack_status: action.payload.pack_status
+        }
+      };
+    case UPDATE_OFFLINE_REGION:
       return {
         ...state,
         [action.groupe]: {
           ...state[action.groupe],
           offlineRegion: action.payload.offlineRegion,
-          offlineRegionStatus: action.payload.offlineRegionStatus
+          offlineRegionStatus: action.payload.offlineRegionStatus,
+          error: undefined
         }
       };
-    case "UPDATE_OFFLINE_ERROR":
+    case UPDATE_OFFLINE_ERROR:
       return {
         ...state,
         [action.groupe]: {

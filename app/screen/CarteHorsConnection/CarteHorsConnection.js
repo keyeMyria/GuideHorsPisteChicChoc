@@ -7,6 +7,12 @@ import DownloadItem from "./DownloadItem";
 
 import HeaderBar from "../../components/HeaderBar";
 
+const OrdreAlphabetiqueFilter = (a, b) => {
+  if (a.name < b.name) return -1;
+  if (a.name > b.name) return 1;
+  return 0;
+};
+
 class CarteHorsConnection extends React.Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
@@ -24,11 +30,7 @@ class CarteHorsConnection extends React.Component {
   }
 
   render() {
-    const items = Object.values(this.props.offline_status).sort(function(a, b) {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    });
+    const items = Object.values(this.props.offline_status).sort(OrdreAlphabetiqueFilter);
 
     return (
       <Container>

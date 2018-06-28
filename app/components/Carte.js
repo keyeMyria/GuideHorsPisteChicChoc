@@ -16,10 +16,6 @@ import geoJsonLayer from "../assets/geoJsonLayer.json";
 import { Fab } from "native-base";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-//import Modal from "react-native-modal";
-
-//import { subscribeOfflineMapsToStore } from "../lib/offlineManager";
-
 export default class Carte extends Component {
   constructor(props) {
     super(props);
@@ -95,10 +91,7 @@ export default class Carte extends Component {
       await this.zoomToFeatures(featuresToBounds, 150);
     } else {
       if (selectedFeatures.features.length > 0) {
-        ToastAndroid.show(
-          selectedFeatures.features[0].properties.element + ": " + selectedFeatures.features[0].properties.name,
-          ToastAndroid.SHORT
-        );
+        ToastAndroid.show(selectedFeatures.features[0].properties.element + ": " + selectedFeatures.features[0].properties.name, ToastAndroid.SHORT);
         console.log(selectedFeatures.features[0]);
       }
     }
@@ -133,8 +126,7 @@ export default class Carte extends Component {
           rotateEnabled={false}
           compassEnabled={true}
           //animated={true}
-          userTrackingMode={Mapbox.UserTrackingModes.FolloWithHeading}
-        >
+          userTrackingMode={Mapbox.UserTrackingModes.FolloWithHeading}>
           {generateLayers(global.geoJsonData)}
         </Mapbox.MapView>
 
@@ -144,8 +136,7 @@ export default class Carte extends Component {
             top: 20,
             right: 1,
             fontSize: 10
-          }}
-        >
+          }}>
           {zoom}
         </Text>
 
@@ -156,13 +147,8 @@ export default class Carte extends Component {
           position="bottomRight"
           onPress={() => {
             console.log(this.state.lastLocation);
-            if (this.state.lastLocation)
-              this._map.flyTo(
-                [this.state.lastLocation.coords.longitude, this.state.lastLocation.coords.latitude],
-                2000
-              );
-          }}
-        >
+            if (this.state.lastLocation) this._map.flyTo([this.state.lastLocation.coords.longitude, this.state.lastLocation.coords.latitude], 2000);
+          }}>
           <Icon name="my-location" />
         </Fab>
       </View>

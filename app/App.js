@@ -16,7 +16,7 @@ import { prepareGeojsonData } from "./lib/geojsonManager";
 
 import Routes from "./Routes";
 
-import { subscribeOfflineMapsToStore } from "./lib/offlineManager";
+import { subscribeLocalOfflinePacksToStore, populateOfflineRegionsToStore } from "./actions/offline";
 
 YellowBox.ignoreWarnings(["Warning: isMounted(...) is deprecated", "Module RCTImageLoader"]);
 
@@ -30,32 +30,6 @@ export default class App extends Component {
       locationPermission: "undetermined",
       geoJsonDataReady: false
     };
-
-    //console.log(store.getState());
-
-    //const unsubscribe =
-    //store.subscribe(() => console.log(store.getState()));
-
-    //store.dispatch(
-    //  addRapport({
-    //    id: 3432432423,
-    //    emplacement: "valliere",
-    //    taille_avalanche: 3,
-    //    datetime: "12/12/2018",
-    //    declenchement: 2,
-    //    type_avalanche: 1,
-    //    plan_glissement: 2,
-    //    info_complementaires: "fxgourdeau@hotmail.com"
-    //  })
-    //);
-
-    //store.dispatch({
-    //  type: PURGE,
-    //  key: "root",
-    //  result: () => null
-    //});
-
-    //unsubscribe();
   }
 
   async componentDidMount() {
@@ -63,7 +37,9 @@ export default class App extends Component {
 
     prepareGeojsonData();
 
-    await subscribeOfflineMapsToStore(store.dispatch);
+    store.dispatch(populateOfflineRegionsToStore());
+
+    store.dispatch(subscribeLocalOfflinePacksToStore());
 
     this.setState({ geoJsonDataReady: true });
 
