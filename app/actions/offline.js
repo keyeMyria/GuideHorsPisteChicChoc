@@ -20,7 +20,7 @@ export const pack_status = {
   ERROR: 7
 };
 
-function addOfflineRegion(groupe, payload) {
+export function addOfflineRegion(groupe, payload) {
   return { type: ADD_OFFLINE_REGION, groupe: groupe, payload };
 }
 
@@ -163,6 +163,9 @@ export function pausePack(item) {
 
 function onMapDownloadProgress(offlineRegion, offlineRegionStatus) {
   return async dispatch => {
+    //console.log("offlineRegion", offlineRegion);
+    //console.log("offlineRegionStatus", offlineRegionStatus);
+
     const { name, state } = offlineRegionStatus;
 
     dispatch(
@@ -180,6 +183,8 @@ function onMapDownloadProgress(offlineRegion, offlineRegionStatus) {
 
 function onMapDownloadError(offlineRegion, message) {
   return async dispatch => {
+    //console.log("offlineRegionerror", offlineRegion);
+
     const groupe = offlineRegion._metadata.name;
 
     dispatch(updateMapStatus(name, { pack_status: pack_status.ERROR }));
