@@ -16,7 +16,10 @@ import { prepareGeojsonData } from "./lib/geojsonManager";
 
 import Routes from "./Routes";
 
-import { subscribeLocalOfflinePacksToStore, populateOfflineRegionsToStore } from "./actions/offline";
+import {
+  subscribeLocalOfflinePacksToStore,
+  populateOfflineRegionsToStore
+} from "./actions/offline";
 
 YellowBox.ignoreWarnings(["Warning: isMounted(...) is deprecated", "Module RCTImageLoader"]);
 
@@ -25,6 +28,8 @@ const { persistor, store } = configureAppStore();
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    console.log("sllo");
 
     this.state = {
       locationPermission: "undetermined",
@@ -59,14 +64,17 @@ export default class App extends Component {
   }
 
   checkIfLoadingDone() {
-    if (this.state.locationPermission == "authorized" && this.state.geoJsonDataReady == true) return true;
+    if (this.state.locationPermission == "authorized" && this.state.geoJsonDataReady == true)
+      return true;
     else return false;
   }
 
   render() {
     return (
       <Provider store={store}>
-        <PersistGate persistor={persistor}>{this.checkIfLoadingDone() ? <Routes /> : <Spinner />}</PersistGate>
+        <PersistGate persistor={persistor}>
+          {this.checkIfLoadingDone() ? <Routes /> : <Spinner />}
+        </PersistGate>
       </Provider>
     );
   }

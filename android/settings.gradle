@@ -1,8 +1,9 @@
 rootProject.name = 'reactAQ'
+
+
+
 include ':bugsnag-react-native'
 project(':bugsnag-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/bugsnag-react-native/android')
-//include ':react-native-image-picker'
-//project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
 include ':react-native-vector-icons'
 project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
 include ':react-native-splash-screen'
@@ -10,7 +11,7 @@ project(':react-native-splash-screen').projectDir = new File(rootProject.project
 include ':@mapbox/react-native-mapbox-gl'
 project(':@mapbox/react-native-mapbox-gl').projectDir = new File(rootProject.projectDir, '../node_modules/@mapbox/react-native-mapbox-gl/android/rctmgl')
 
-include ':app'
-
 include ':mapbox-react-native-mapbox-gl'
 project(':mapbox-react-native-mapbox-gl').projectDir = new File(rootProject.projectDir, '../node_modules/@mapbox/react-native-mapbox-gl/android/rctmgl')
+
+include ':app'
